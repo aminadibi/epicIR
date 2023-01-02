@@ -218,8 +218,9 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
     80380850,
     79906380
   )
-  df <- data.frame(Year = c(2015:(2015 + model_input$values$global_parameters$time_horizon-1)), Predicted = IR_population_2015_2100_UN[1:model_input$values$global_parameters$time_horizon], Simulated = rowSums(Cget_output_ex()$n_alive_by_ctime_sex)/ settings$n_base_agents * 18179400) #rescaling population. There are about 18.6 million Canadians above 40
-  message ("Here's simulated vs. predicted population table:")
+  df <- data.frame(Year = c(2015:(2015 + model_input$values$global_parameters$time_horizon-1)),
+                   Predicted = IR_population_2015_2100_UN[1:model_input$values$global_parameters$time_horizon],
+                   Simulated = rowSums(Cget_output_ex()$n_alive_by_ctime_sex)/ settings$n_base_agents * 81790850) #TODO should limit to those above 40. rescaling population. There are 81790850 Iranians.
   print(df)
   dfm <- reshape2::melt(df[,c('Year','Predicted','Simulated')], id.vars = 1)
   plot_population_growth  <- ggplot2::ggplot(dfm, aes(x = Year, y = value)) +  theme_tufte(base_size=14, ticks=F) +
@@ -262,7 +263,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
     # petoc()
 
     dfSimulated <- data.frame (population = pyramid[year - 2015 + 1, ], age = 40:110)
-    dfSimulated$population <- dfSimulated$population * (-1) / settings$n_base_agents * 18179400 #rescaling population. There are 18179400 Canadians above 40
+    dfSimulated$population <- dfSimulated$population * (-1) / settings$n_base_agents * 81790850 #TODO should limit to those above 40. rescaling population. There are 81790850 Iranians.
 
     p <- ggplot (NULL, aes(x = age, y = population)) + theme_tufte(base_size=14, ticks=F) +
          geom_bar (aes(fill = "Simulated"), data = dfSimulated, stat="identity", alpha = 0.5) +
