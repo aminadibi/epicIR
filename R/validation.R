@@ -102,7 +102,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
   x <- x[1:input$global_parameters$time_horizon, ]
   plot(x, type = "l", ylim = c(0.5, max(x[, 2] * 1.5)), xlab = "Year", ylab = "Relative population size")
   title(cex.main = 0.5, "Relative populaton size")
-  message("The plot I just drew is the expected (well, StatCan's predictions) relative population growth from 2015\n")
+  message("The plot I just drew is the expected relative population growth from 2022\n")
   petoc()
 
   if (remove_COPD) {

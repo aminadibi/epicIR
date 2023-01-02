@@ -1,4 +1,4 @@
 library(testthat)
-library(epicR)
+library(epicIR)
 
-test_check("epicR")
+test_check("epicIR")
