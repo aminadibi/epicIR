@@ -132,10 +132,10 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
 
   df <- data.frame(Year = c(2015:(2015 + model_input$values$global_parameters$time_horizon-1)),
                    Predicted = IR_pyramid[1:model_input$values$global_parameters$time_horizon] * 1000,
-                   Simulated = rowSums(Cget_output_ex()$n_alive_by_ctime_sex)/ settings$n_base_agents * 25200575) #TODO should limit to those above 40. rescaling population. There are 25200575 Iranians above 40 in 2015
+                   Simulated = rowSums(Cget_output_ex()$n_alive_by_ctime_sex)/ settings$n_base_agents * 25200575) #rescaling population. There are 25200575 Iranians above 40 in 2015
   print(df)
   dfm <- reshape2::melt(df[,c('Year','Predicted','Simulated')], id.vars = 1)
-  plot_population_growth  <- ggplot2::ggplot(dfm, aes(x = Year, y = value)) +  theme_tufte(base_size=14, ticks=F) +
+  plot_population_growth  <- ggplot2::ggplot(dfm, aes(x = Year, y = value)) +  theme_tufte(base_size=10, ticks=F) +
     geom_bar(aes(fill = variable), stat = "identity", position = "dodge") +
     labs(title = "Population Growth Curve") + ylab ("Population") +
     labs(caption = "(based on population at age 40 and above)") +
@@ -143,7 +143,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
     scale_y_continuous(name="Population", labels = scales::comma)
 
   plot (plot_population_growth)
-  if (savePlots) ggsave(paste0("PopulationGrowth",".tiff"), plot = last_plot(), device = "tiff", dpi = 300)
+  if (savePlots) ggsave(paste0("PopulationGrowth",".png"), plot = last_plot(), device = "png", dpi = 300)
 
 
   pyramid <- matrix(NA, nrow = input$global_parameters$time_horizon, ncol = length(Cget_output_ex()$n_alive_by_ctime_age[1, ]) -
@@ -175,17 +175,17 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
     # petoc()
 
     dfSimulated <- data.frame (population = pyramid[year - 2015 + 1, ], age = 40:110)
-    dfSimulated$population <- dfSimulated$population * (-1) / settings$n_base_agents * 25200575 #TODO should limit to those above 40. rescaling population. There are 25200575 Iranians above 40 in 2015
+    dfSimulated$population <- dfSimulated$population * (-1) / settings$n_base_agents * 25200575 #rescaling population. There are 25200575 Iranians above 40 in 2015
 
-    p <- ggplot (NULL, aes(x = age, y = population)) + theme_tufte(base_size=14, ticks=F) +
+    p <- ggplot (NULL, aes(x = age, y = population)) + theme_tufte(base_size=10, ticks=F) +
          geom_bar (aes(fill = "Simulated"), data = dfSimulated, stat="identity", alpha = 0.5) +
          geom_bar (aes(fill = "Predicted"), data = dfPredicted, stat="identity", alpha = 0.5) +
          theme(axis.title=element_blank()) +
-         ggtitle(paste0("Simulated vs. Predicted Population Pyramid in ", year)) +
+         ggtitle(paste0("Population Pyramid in ", year)) +
          theme(legend.title=element_blank()) +
          scale_y_continuous(name="Population", labels = scales::comma) +
          scale_x_continuous(name="Age", labels = scales::comma)
-    if (savePlots) ggsave(paste0("Population ", year,".tiff"), plot = last_plot(), device = "tiff", dpi = 300)
+    if (savePlots) ggsave(paste0("Population ", year,".png"), plot = last_plot(), device = "png", dpi = 300)
 
     plot(p)
 
