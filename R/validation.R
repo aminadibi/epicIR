@@ -97,7 +97,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
 
   # CanSim.052.0005<-read.csv(system.file ('extdata', 'CanSim.052.0005.csv', package = 'epicR'), header = T); #package ready
   # reading
-  x <- aggregate(CanSim.052.0005[, "value"], by = list(CanSim.052.0005[, "year"]), FUN = sum)
+  x <- aggregate(UN_IR_pyramid_2022[, "value"], by = list(UN_IR_pyramid_2022[, "year"]), FUN = sum)
   x[, 2] <- x[, 2]/x[1, 2]
   x <- x[1:input$global_parameters$time_horizon, ]
   plot(x, type = "l", ylim = c(0.5, max(x[, 2] * 1.5)), xlab = "Year", ylab = "Relative population size")
@@ -125,10 +125,10 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
   message("And the black one is the observed (simulated) growth\n")
    ######## pretty population growth curve
 
-  CanSim <- tibble::as_tibble(CanSim.052.0005)
-  CanSim <- tidyr::spread(CanSim, key = year, value = value)
-  CanSim <- CanSim[, 3:51]
-  CanSim <- colSums (CanSim)
+  IR_pyramid <- tibble::as_tibble(UN_IR_pyramid_2022)
+  IR_pyramid <- tidyr::spread(IR_pyramid, key = year, value = value)
+  IR_pyramid <- IR_pyramid[, 3:51]
+  IR_pyramid <- colSums (IR_pyramid)
 
   IR_population_2015_2100_UN <- c(
     81790850,
@@ -247,7 +247,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
   message("Now evaluating the population pyramid\n")
   for (year in c(2015, 2025, 2034)) {
     message("The observed population pyramid in", year, "is just drawn\n")
-    x <- CanSim.052.0005[which(CanSim.052.0005[, "year"] == year & CanSim.052.0005[, "sex"] == "both"), "value"]
+    x <- UN_IR_pyramid_2022[which(UN_IR_pyramid_2022[, "year"] == year & UN_IR_pyramid_2022[, "sex"] == "both"), "value"]
     #x <- c(x, rep(0, 111 - length(x) - 40))
     #barplot(x,  names.arg=40:110, xlab = "Age")
     #title(cex.main = 0.5, paste("Predicted Pyramid - ", year))
