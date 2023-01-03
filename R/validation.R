@@ -127,7 +127,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
 
   IR_pyramid <- tibble::as_tibble(UN_IR_pyramid_2022)
   IR_pyramid <- tidyr::spread(IR_pyramid, key = year, value = value)
-  IR_pyramid <- IR_pyramid[, 4:51]
+  IR_pyramid <- IR_pyramid[, 4:80]
   IR_pyramid <- colSums (IR_pyramid)
 
   df <- data.frame(Year = c(2015:(2015 + model_input$values$global_parameters$time_horizon-1)),
