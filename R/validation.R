@@ -102,7 +102,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
   x <- x[1:input$global_parameters$time_horizon, ]
   plot(x, type = "l", ylim = c(0.5, max(x[, 2] * 1.5)), xlab = "Year", ylab = "Relative population size")
   title(cex.main = 0.5, "Relative populaton size")
-  message("The plot I just drew is the expected relative population growth from 2022\n")
+  message("The plot I just drew is the expected relative population growth from 2015\n")
   petoc()
 
   if (remove_COPD) {
@@ -130,97 +130,9 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
   IR_pyramid <- IR_pyramid[, 3:51]
   IR_pyramid <- colSums (IR_pyramid)
 
-  IR_population_2015_2100_UN <- c(
-    81790850,
-    83306230,
-    84505080,
-    85617560,
-    86564210,
-    87290190,
-    87923430,
-    88550570,
-    89172770,
-    89809784,
-    90410660,
-    90976220,
-    91506856,
-    92005110,
-    92475360,
-    92921016,
-    93343544,
-    93745800,
-    94130480,
-    94501770,
-    94861180,
-    95209470,
-    95548450,
-    95879780,
-    96203064,
-    96518600,
-    96826536,
-    97127580,
-    97421496,
-    97706790,
-    97981000,
-    98240510,
-    98479020,
-    98688810,
-    98865530,
-    99007220,
-    99112400,
-    99177560,
-    99201176,
-    99182264,
-    99119580,
-    99014780,
-    98870200,
-    98686360,
-    98465620,
-    98210616,
-    97925200,
-    97611380,
-    97270740,
-    96905870,
-    96516350,
-    96104920,
-    95675250,
-    95229816,
-    94770140,
-    94297930,
-    93816000,
-    93325850,
-    92828490,
-    92324330,
-    91814870,
-    91303170,
-    90790930,
-    90279070,
-    89769010,
-    89260960,
-    88756460,
-    88257704,
-    87763910,
-    87274584,
-    86792830,
-    86319304,
-    85851330,
-    85388150,
-    84930904,
-    84477220,
-    84025816,
-    83578200,
-    83130850,
-    82682610,
-    82232616,
-    81777240,
-    81316340,
-    80850630,
-    80380850,
-    79906380
-  )
   df <- data.frame(Year = c(2015:(2015 + model_input$values$global_parameters$time_horizon-1)),
-                   Predicted = IR_population_2015_2100_UN[1:model_input$values$global_parameters$time_horizon],
-                   Simulated = rowSums(Cget_output_ex()$n_alive_by_ctime_sex)/ settings$n_base_agents * 81790850) #TODO should limit to those above 40. rescaling population. There are 81790850 Iranians.
+                   Predicted = IR_pyramid[1:model_input$values$global_parameters$time_horizon] * 1000,
+                   Simulated = rowSums(Cget_output_ex()$n_alive_by_ctime_sex)/ settings$n_base_agents * 25200575) #TODO should limit to those above 40. rescaling population. There are 25200575 Iranians above 40 in 2015
   print(df)
   dfm <- reshape2::melt(df[,c('Year','Predicted','Simulated')], id.vars = 1)
   plot_population_growth  <- ggplot2::ggplot(dfm, aes(x = Year, y = value)) +  theme_tufte(base_size=14, ticks=F) +
@@ -246,7 +158,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
 
   message("Now evaluating the population pyramid\n")
   for (year in c(2015, 2025, 2034)) {
-    message("The observed population pyramid in", year, "is just drawn\n")
+    message("The observed population pyramid in ", year, " plotted\n")
     x <- UN_IR_pyramid_2022[which(UN_IR_pyramid_2022[, "year"] == year & UN_IR_pyramid_2022[, "sex"] == "both"), "value"]
     #x <- c(x, rep(0, 111 - length(x) - 40))
     #barplot(x,  names.arg=40:110, xlab = "Age")
@@ -263,7 +175,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
     # petoc()
 
     dfSimulated <- data.frame (population = pyramid[year - 2015 + 1, ], age = 40:110)
-    dfSimulated$population <- dfSimulated$population * (-1) / settings$n_base_agents * 81790850 #TODO should limit to those above 40. rescaling population. There are 81790850 Iranians.
+    dfSimulated$population <- dfSimulated$population * (-1) / settings$n_base_agents * 25200575 #TODO should limit to those above 40. rescaling population. There are 25200575 Iranians above 40 in 2015
 
     p <- ggplot (NULL, aes(x = age, y = population)) + theme_tufte(base_size=14, ticks=F) +
          geom_bar (aes(fill = "Simulated"), data = dfSimulated, stat="identity", alpha = 0.5) +
