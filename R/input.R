@@ -237,7 +237,7 @@ get_input <- function(age0 = 40,
 
 
   input_help$agent$l_inc_betas <- "Ln of incidence rate of the new population - Calibration target to keep populatoin size and age pyramid in line with calibration"
-  input$agent$l_inc_betas <- t(as.matrix(c(intercept = -2.5-input$global_parameters$closed_cohort*100, y = 0.02, y2 = -0.003))) # intercept is the result of model calibration,
+  input$agent$l_inc_betas <- t(as.matrix(c(intercept = -2.33-input$global_parameters$closed_cohort*100, y = 0.02, y2 = -0.0023))) # intercept is the result of model calibration,
   input_ref$agent$l_inc_betas <- "If closed cohort is enabled, incidence population will be turned off."
 
 
