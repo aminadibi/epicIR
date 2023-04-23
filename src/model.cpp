@@ -2405,7 +2405,7 @@ if(id<settings.n_base_agents) //the first n_base_agent cases are prevalent cases
                      +input.smoking.logit_p_current_smoker_0_betas[2]*(*ag).age_at_creation
                      +input.smoking.logit_p_current_smoker_0_betas[3]*pow((*ag).age_at_creation,2)
                      +input.smoking.logit_p_current_smoker_0_betas[4]*(*ag).age_at_creation*(*ag).sex
-                     +input.smoking.logit_p_current_smoker_0_betas[5]*pow((*ag).age_at_creation,2)*(*ag).sex
+                     +input.smoking.logit_p_current_smoker_0_betas[5]*calendar_time*(*ag).sex
                      +input.smoking.logit_p_current_smoker_0_betas[6]*calendar_time
   );
 

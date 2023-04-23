@@ -249,8 +249,8 @@ get_input <- function(age0 = 40,
   ### smoking;
 
   input_help$smoking$logit_p_current_smoker_0_betas <- "Probability of being a current smoker at the time of creation"
-  input$smoking$logit_p_current_smoker_0_betas <- t(as.matrix(c(Intercept = -0.2, sex = -1, age = -0.02, age2 = 0, sex_age = 0,
-                                                                sex_age2 = 0, year = -0.02)))  #intercept -1.8 when age = -0.02
+  input$smoking$logit_p_current_smoker_0_betas <- t(as.matrix(c(Intercept = 0, sex = -2, age = -0.02, age2 = 0, sex_age = 0,
+                                                                sex_year = 0, year = -0.01)))  #intercept -1.8 when age = -0.02
   input_ref$smoking$logit_p_current_smoker_0_betas <- ""
 
   input_help$smoking$logit_p_never_smoker_con_not_current_0_betas <- "Probability of being a never-smoker conditional on not being current smoker, at the time of creation"
@@ -260,7 +260,7 @@ get_input <- function(age0 = 40,
 
 
   input_help$smoking$minimum_smoking_prevalence <- "Minimum Smoking Prevalence"
-  input$smoking$minimum_smoking_prevalence <- 0.10
+  input$smoking$minimum_smoking_prevalence <- 0.01
   input_ref$smoking$minimum_smoking_prevalence <- ""
 
 
@@ -292,7 +292,7 @@ get_input <- function(age0 = 40,
 
 
   input_help$smoking$ln_h_inc_betas <- "Log-hazard of starting smoking (incidence or relapse)"
-  input$smoking$ln_h_inc_betas <- c(intercept = -4, sex = -0.15, age = -0.02, age2 = 0, calendar_time = -0.01)
+  input$smoking$ln_h_inc_betas <- c(intercept = -4, sex = -2.15, age = -0.02, age2 = 0, calendar_time = -0.01)
   input_ref$smoking$ln_h_inc_betas <- ""
 
 
