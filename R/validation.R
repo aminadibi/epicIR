@@ -203,7 +203,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
 #' @return validation test results
 #' @export
 validate_smoking <- function(remove_COPD = 1, intercept_k = NULL) {
-  message("Welcome to EPIC validator! Today we will see if the model make good smoking predictions")
+  message("Validating smoking prjections")
   petoc()
 
   settings <- default_settings
@@ -224,15 +224,6 @@ validate_smoking <- function(remove_COPD = 1, intercept_k = NULL) {
     input$manual$smoking$intercept_k <- intercept_k
 
 
-  # CanSim.105.0501<-read.csv(paste(data_path,'/CanSim.105.0501.csv',sep=''),header=T) Included in the package as internal data
-  tab1 <- rbind(CanSim.105.0501[1:3, "value"], CanSim.105.0501[4:6, "value"])/100
-  barplot(tab1, beside = T, names.arg = c("40", "52", "65+"), ylim = c(0, 0.4), xlab = "Age group", ylab = "Prevalenc of smoking",
-          col = c("black", "grey"))
-  title(cex.main = 0.5, "Prevalence of current smoker by sex and age group (observed)")
-  legend("topright", c("Male", "Female"), fill = c("black", "grey"))
-  petoc()
-
-
   run(input = input)
   dataS <- Cget_all_events_matrix()
   dataS <- dataS[which(dataS[, "event"] == events["event_start"]), ]
@@ -241,8 +232,7 @@ validate_smoking <- function(remove_COPD = 1, intercept_k = NULL) {
   for (i in 0:1) for (j in 1:length(age_list)) tab2[i + 1, j] <- mean(dataS[which(dataS[, "female"] == i & dataS[, "age_at_creation"] >
                                                                                     age_list[[j]][1] & dataS[, "age_at_creation"] <= age_list[[j]][2]), "smoking_status"])
 
-  message("This is the model generated bar plot")
-  petoc()
+
   barplot(tab2, beside = T, names.arg = c("40", "52", "65+"), ylim = c(0, 0.4), xlab = "Age group", ylab = "Prevalence of smoking",
           col = c("black", "grey"))
   title(cex.main = 0.5, "Prevalence of current smoking at creation (simulated)")
