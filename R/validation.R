@@ -203,7 +203,7 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
 #' @return validation test results
 #' @export
 validate_smoking <- function(remove_COPD = 1, intercept_k = NULL) {
-  message("Validating smoking prjections")
+  message("اعتبارسنجی ماژول مصرف دخانیات")
   petoc()
 
   settings <- default_settings
@@ -215,7 +215,7 @@ validate_smoking <- function(remove_COPD = 1, intercept_k = NULL) {
   init_session(settings = settings)
   input <- model_input$values
 
-  message("\nBecause you have called me with remove_COPD=", remove_COPD, ", I am ", c("NOT", "indeed")[remove_COPD + 1], "going to remove COPD-related mortality from my calculations")
+  message("\nBecause you have called me with remove_COPD=", remove_COPD, ", I am ", c("NOT", "indeed")[remove_COPD + 1], " going to remove COPD-related mortality from my calculations")
   if (remove_COPD) {
     input$exacerbation$logit_p_death_by_sex <- input$exacerbation$logit_p_death_by_sex * -10000 # TODO why was this zero? Amin
   }
