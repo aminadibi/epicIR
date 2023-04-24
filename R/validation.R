@@ -215,7 +215,7 @@ validate_smoking <- function(remove_COPD = 1, intercept_k = NULL) {
   init_session(settings = settings)
   input <- model_input$values
 
-  message("\nBecause you have called me with remove_COPD=", remove_COPD, ", I am", c("NOT", "indeed")[remove_COPD + 1], "going to remove COPD-related mortality from my calculations")
+  message("\nBecause you have called me with remove_COPD=", remove_COPD, ", I am ", c("NOT", "indeed")[remove_COPD + 1], "going to remove COPD-related mortality from my calculations")
   if (remove_COPD) {
     input$exacerbation$logit_p_death_by_sex <- input$exacerbation$logit_p_death_by_sex * -10000 # TODO why was this zero? Amin
   }
@@ -223,24 +223,15 @@ validate_smoking <- function(remove_COPD = 1, intercept_k = NULL) {
   if (!is.null(intercept_k))
     input$manual$smoking$intercept_k <- intercept_k
 
-  petoc()
-
-  message("There are two validation targets: 1) the prevalence of current smokers (by sex) in 2015, and 2) the projected decline in smoking rate.\n")
-  message("Starting validation target 1: baseline prevalence of smokers.\n")
-  petoc()
 
   # CanSim.105.0501<-read.csv(paste(data_path,'/CanSim.105.0501.csv',sep=''),header=T) Included in the package as internal data
   tab1 <- rbind(CanSim.105.0501[1:3, "value"], CanSim.105.0501[4:6, "value"])/100
-  message("This is the observed percentage of current smokers in 2014 (m,f)\n")
   barplot(tab1, beside = T, names.arg = c("40", "52", "65+"), ylim = c(0, 0.4), xlab = "Age group", ylab = "Prevalenc of smoking",
           col = c("black", "grey"))
   title(cex.main = 0.5, "Prevalence of current smoker by sex and age group (observed)")
   legend("topright", c("Male", "Female"), fill = c("black", "grey"))
   petoc()
 
-  message("Now I will run the model using the default smoking parameters")
-  petoc()
-  message("running the model\n")
 
   run(input = input)
   dataS <- Cget_all_events_matrix()
@@ -257,14 +248,6 @@ validate_smoking <- function(remove_COPD = 1, intercept_k = NULL) {
   title(cex.main = 0.5, "Prevalence of current smoking at creation (simulated)")
   legend("topright", c("Male", "Female"), fill = c("black", "grey"))
 
-  message("This step is over; press enter to continue to step 2")
-  petoc()
-
-  message("Now we will validate the model on smoking trends")
-  petoc()
-
-  message("According to Table 2.1 of this report (see the extracted data in data folder): http://www.tobaccoreport.ca/2015/TobaccoUseinCanada_2015.pdf, the prevalence of current smoker is declining by around 3.8% per year\n")
-  petoc()
 
   op_ex <- Cget_output_ex()
   smoker_prev <- op_ex$n_current_smoker_by_ctime_sex/op_ex$n_alive_by_ctime_sex
