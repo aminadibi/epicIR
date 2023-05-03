@@ -1,6 +1,6 @@
 Package: epicIR
 Title: R Package for Evaluation Platform in COPD for Iran
-Version: 0.33.0
+Version: 0.34.0
 Authors@R: c(
     person("Mohsen", "Sadatsafavi", email = "mohsen.sadatsafavi@ubc.ca", role = c("aut", "cph")),
     person("Amin", "Adibi", email = "adibi@alumni.ubc.ca", role = c("aut", "cre")),

@@ -500,6 +500,7 @@ export_figures <- function(nPatients = 1e4) {
   exac_by_age_year[, 6] <- rowSums (exac_by_age_year[, 2:5]) # all
 
   exac_by_age_year[, 2:6]<- exac_by_age_year[, 2:6] / nPatients * 32.178e6 # roughly the 40+ population of Iran
+  exac_by_age_year <- as.data.frame(exac_by_age_year)
   openxlsx::writeData(wb, "Exac_by_age_year", exac_by_age_year, startCol = 2, startRow = 3, colNames = TRUE)
   dfm <- reshape2::melt(exac_by_age_year[,c("Year", "40-55", "55-70", "70-85", "85+", "All")],id.vars = 1)
 
@@ -697,6 +698,7 @@ export_figures <- function(nPatients = 1e4) {
 
 
   population_by_sex_year[, 2:4] <- population_by_sex_year[, 2:4] / (nPatients) * 32.178e6 # roughly the 40+ population of Iran as of 2023 https://www.census.gov/data-tools/demo/idb/#/pop?COUNTRY_YEAR=2017&COUNTRY_YR_ANIM=2017&FIPS_SINGLE=IR&FIPS=IR&popPages=BYAGE&POP_YEARS=2023&menu=popViz&ageGroup=5Y
+  population_by_sex_year <- as.data.frame(population_by_sex_year)
   openxlsx::writeData(wb, "Population_by_year", population_by_sex_year, startCol = 2, startRow = 3, colNames = TRUE)
   dfm <- reshape2::melt(population_by_sex_year[,c("Year", "male", "female", "all")],id.vars = 1)
 
