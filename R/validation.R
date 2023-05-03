@@ -607,7 +607,7 @@ validate_mortality <- function(n_sim = 5e+05, bgd = 1, bgd_h = 1, manual = 1, ex
   message("working...\n")
   res <- run(input = input)
 
-  message("Mortality rate was", Cget_output()$n_death/Cget_output()$cumul_time, "\n")
+  message("Mortality rate was ", Cget_output()$n_death/Cget_output()$cumul_time, "\n")
 
 
   if (Cget_output()$n_death > 0) {
