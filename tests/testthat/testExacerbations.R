@@ -15,7 +15,7 @@ test_that("In untreated patients:
 
   #(1) Number of severe exacerbations per year close to 100,000:
   n_exac <- data.frame(year= 1:inputs$global_parameters$time_horizon,
-                      Severe_Exacerbations = output_ex$n_exac_by_ctime_severity_diagnosed[,3]* (32.178e6/rowSums(output_ex$n_alive_by_ctime_sex)))
+                      Severe_Exacerbations = output_ex$n_exac_by_ctime_severity_diagnosed[,3]* (25.2e6/rowSums(output_ex$n_alive_by_ctime_sex)))
 
   averagen_severeexac <- mean(n_exac$Severe_Exacerbations[round(nrow(n_exac)/2,0):nrow(n_exac)])
 

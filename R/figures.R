@@ -226,7 +226,7 @@ export_figures <- function(nPatients = 1e4) {
   cumul_COPD_prev_by_sex <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 3)
   colnames(cumul_COPD_prev_by_sex) <- c("Year", "Male", "Female")
   cumul_COPD_prev_by_sex[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
-  cumul_COPD_prev_by_sex[1:input$global_parameters$time_horizon,2:3] <- op_ex$n_COPD_by_ctime_sex  / default_settings$n_base_agents * 32.178e6  #for entire Iran
+  cumul_COPD_prev_by_sex[1:input$global_parameters$time_horizon,2:3] <- op_ex$n_COPD_by_ctime_sex  / default_settings$n_base_agents * 25.2e6  #for entire Iran
 
   openxlsx::writeData(wb, "COPD_prevalence_by_year_sex", cumul_COPD_prev_by_sex, startCol = 2, startRow = 30, colNames = TRUE)
 
@@ -448,8 +448,8 @@ export_figures <- function(nPatients = 1e4) {
   colnames(cumul_exac_rate_by_sex_by_year) <- c("Year", "male", "female")
   cumul_exac_rate_by_sex_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
 
-  cumul_exac_rate_by_sex_by_year[, 3] <- rowSums(op_ex$n_exac_by_ctime_severity_female [, 1:4]) / default_settings$n_base_agents * 32.178e6 #for entire Iran
-  cumul_exac_rate_by_sex_by_year[, 2] <- rowSums(op_ex$n_exac_by_ctime_severity [, 1:4] - op_ex$n_exac_by_ctime_severity_female [, 1:4]) / default_settings$n_base_agents * 32.178e6
+  cumul_exac_rate_by_sex_by_year[, 3] <- rowSums(op_ex$n_exac_by_ctime_severity_female [, 1:4]) / default_settings$n_base_agents * 25.2e6 #for entire Iran
+  cumul_exac_rate_by_sex_by_year[, 2] <- rowSums(op_ex$n_exac_by_ctime_severity [, 1:4] - op_ex$n_exac_by_ctime_severity_female [, 1:4]) / default_settings$n_base_agents * 25.2e6
 
   cumul_exac_rate_by_sex_by_year <- as.data.frame(cumul_exac_rate_by_sex_by_year)
 
@@ -499,14 +499,14 @@ export_figures <- function(nPatients = 1e4) {
   exac_by_age_year[, 5] <- rowSums(op_ex$n_exac_by_ctime_age [, 85:111]) # special case of 80+
   exac_by_age_year[, 6] <- rowSums (exac_by_age_year[, 2:5]) # all
 
-  exac_by_age_year[, 2:6]<- exac_by_age_year[, 2:6] / nPatients * 32.178e6 # roughly the 40+ population of Iran
+  exac_by_age_year[, 2:6]<- exac_by_age_year[, 2:6] / nPatients * 25.2e6 # roughly the 40+ population of Iran
   exac_by_age_year <- as.data.frame(exac_by_age_year)
   openxlsx::writeData(wb, "Exac_by_age_year", exac_by_age_year, startCol = 2, startRow = 3, colNames = TRUE)
   dfm <- reshape2::melt(exac_by_age_year[,c("Year", "40-55", "55-70", "70-85", "85+", "All")],id.vars = 1)
 
   plot_exac_by_age_year <- ggplot2::ggplot(dfm, aes(x = Year, y = value, color = variable)) +  theme_tufte(base_size=14, ticks=F) +
     geom_point () + geom_line() + labs(title = "Number of Exacerbations per age group") + ylab ("Number of Exacerbations")  +
-     scale_y_continuous(breaks = scales::pretty_breaks(n = 12)) + labs(caption = "(All severity levels, assuming 40+ population of Iran as 32.178 million")
+     scale_y_continuous(breaks = scales::pretty_breaks(n = 12)) + labs(caption = "(All severity levels, assuming 40+ population of Iran as 25.2 million")
 
   plot(plot_exac_by_age_year) #plot needs to be showing
   openxlsx::insertPlot(wb, "Exac_by_age_year",  xy = c("I", 3), width = 20, height = 13.2 , fileType = "png", units = "cm")
@@ -539,7 +539,7 @@ export_figures <- function(nPatients = 1e4) {
   # Cumul_cost_by_GOLD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
   # colnames(Cumul_cost_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
   # Cumul_cost_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
-  # Cumul_cost_by_GOLD[, 2:5] <- (op_ex$cumul_cost_gold_ctime [, 2:5])/1e6 / default_settings$n_base_agents * 32.178e6  #per million for entire Canada
+  # Cumul_cost_by_GOLD[, 2:5] <- (op_ex$cumul_cost_gold_ctime [, 2:5])/1e6 / default_settings$n_base_agents * 25.2e6  #per million for entire Canada
   #
   # Cumul_cost_by_GOLD <- as.data.frame(Cumul_cost_by_GOLD)
   # openxlsx::writeData(wb, "Cost_by_GOLD", Cumul_cost_by_GOLD, startCol = 2, startRow = 35, colNames = TRUE)
@@ -583,7 +583,7 @@ export_figures <- function(nPatients = 1e4) {
 #   colnames(Cumul_QALY_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
 #   Cumul_QALY_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
 #
-#   Cumul_QALY_by_GOLD[, 2:5] <- (op_ex$cumul_qaly_gold_ctime [, 2:5]) / default_settings$n_base_agents * 32.178e6
+#   Cumul_QALY_by_GOLD[, 2:5] <- (op_ex$cumul_qaly_gold_ctime [, 2:5]) / default_settings$n_base_agents * 25.2e6
 #   Cumul_QALY_by_GOLD <- as.data.frame(Cumul_QALY_by_GOLD)
 #
 #   openxlsx::writeData(wb, "QALY_by_GOLD", Cumul_QALY_by_GOLD, startCol = 2, startRow = 35, colNames = TRUE)
@@ -697,14 +697,14 @@ export_figures <- function(nPatients = 1e4) {
   population_by_sex_year[, 4] <- rowSums(op_ex$n_alive_by_ctime_sex [, 1:2])
 
 
-  population_by_sex_year[, 2:4] <- population_by_sex_year[, 2:4] / (nPatients) * 32.178e6 # roughly the 40+ population of Iran as of 2023 https://www.census.gov/data-tools/demo/idb/#/pop?COUNTRY_YEAR=2017&COUNTRY_YR_ANIM=2017&FIPS_SINGLE=IR&FIPS=IR&popPages=BYAGE&POP_YEARS=2023&menu=popViz&ageGroup=5Y
+  population_by_sex_year[, 2:4] <- population_by_sex_year[, 2:4] / (nPatients) * 25.2e6 # roughly the 40+ population of Iran as of 2023 https://www.census.gov/data-tools/demo/idb/#/pop?COUNTRY_YEAR=2017&COUNTRY_YR_ANIM=2017&FIPS_SINGLE=IR&FIPS=IR&popPages=BYAGE&POP_YEARS=2023&menu=popViz&ageGroup=5Y
   population_by_sex_year <- as.data.frame(population_by_sex_year)
   openxlsx::writeData(wb, "Population_by_year", population_by_sex_year, startCol = 2, startRow = 3, colNames = TRUE)
   dfm <- reshape2::melt(population_by_sex_year[,c("Year", "male", "female", "all")],id.vars = 1)
 
   plot_population_by_sex_year <- ggplot2::ggplot(dfm, aes(x = Year, y = value, color = variable)) +  theme_tufte(base_size=14, ticks=F) +
     geom_point () + geom_line() + labs(title = "Population of Iran per year") + ylab ("Number")  +
-    scale_y_continuous(breaks = scales::pretty_breaks(n = 12)) + labs(caption = "(assuming 40+ population of Iran as 32.178 million as of 2023)")
+    scale_y_continuous(breaks = scales::pretty_breaks(n = 12)) + labs(caption = "(assuming 40+ population of Iran as 25.2 million as of 2023)")
 
   plot(plot_population_by_sex_year) #plot needs to be showing
   openxlsx::insertPlot(wb, "Population_by_year",  xy = c("I", 3), width = 20, height = 13.2 , fileType = "png", units = "cm")
