@@ -18,3 +18,7 @@ NULL
   library.dynam.unload("epicIR", libpath)
 }
 
+.onAttach <- function (libname, pkgname) {
+  message(paste0("epicIR version ",packageVersion(pkgname)))
+  message("مدل جامع شبیه‌سازی بیماری انسدادی ریه - نسخه‌ی بومی شده برای ایران")
+}

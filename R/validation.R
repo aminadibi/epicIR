@@ -81,7 +81,7 @@ sanity_check <- function() {
 #' @return validation test results
 #' @export
 validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0) {
-  message("Validate_population(...) is responsible for producing output that can be used to test if the population module is properly calibrated.\n")
+  message("اعتبارسنجی ماژول جمعیت")
   petoc()
 
   settings <- default_settings
@@ -92,8 +92,6 @@ validate_population <- function(remove_COPD = 0, incidence_k = 1, savePlots = 0)
   init_session(settings = settings)
   input <- model_input$values  #We can work with local copy more conveniently and submit it to the Run function
 
-  message("\nBecause you have called me with remove_COPD=", remove_COPD, ", I am", c("NOT", "indeed")[remove_COPD + 1], "going to remove COPD-related mortality from my calculations")
-  petoc()
 
   # CanSim.052.0005<-read.csv(system.file ('extdata', 'CanSim.052.0005.csv', package = 'epicR'), header = T); #package ready
   # reading
@@ -576,7 +574,7 @@ validate_payoffs <- function(nPatient = 1e6, disableDiscounting = TRUE, disableE
 #' @return validation test results
 #' @export
 validate_mortality <- function(n_sim = 5e+05, bgd = 1, bgd_h = 1, manual = 1, exacerbation = 1, comorbidity = 1) {
-  message("Hello from EPIC! I am going to test mortality rate and how it is affected by input parameters\n")
+  message("اعتبارسنجی ماژول شبیه‌سازی مرگ و میر")
   petoc()
 
   settings <- default_settings
@@ -767,6 +765,8 @@ validate_lung_function <- function() {
 #' @return validation test results
 #' @export
 validate_exacerbation <- function(base_agents=1e4, input=NULL) {
+
+  message("اعتبارسنجی ماژول حملات ریوی")
 
   settings <- default_settings
   settings$record_mode <- record_mode["record_mode_event"]
