@@ -222,6 +222,17 @@ validate_smoking <- function(remove_COPD = 1, intercept_k = NULL) {
     input$manual$smoking$intercept_k <- intercept_k
 
 
+
+  # CanSim.105.0501<-read.csv(paste(data_path,'/CanSim.105.0501.csv',sep=''),header=T) Included in the package as internal data
+  tab1 <- rbind(CanSim.105.0501[1:3, "value"], CanSim.105.0501[4:6, "value"])/100
+  barplot(tab1, beside = T, names.arg = c("40", "52", "65+"), ylim = c(0, 0.4), xlab = "Age group", ylab = "Prevalenc of smoking",
+          col = c("black", "grey"))
+  title(cex.main = 0.5, "Prevalence of current smoker by sex and age group (observed)")
+  legend("topright", c("Male", "Female"), fill = c("black", "grey"))
+  petoc()
+
+
+
   run(input = input)
   dataS <- Cget_all_events_matrix()
   dataS <- dataS[which(dataS[, "event"] == events["event_start"]), ]
@@ -574,7 +585,7 @@ validate_payoffs <- function(nPatient = 1e6, disableDiscounting = TRUE, disableE
 #' @return validation test results
 #' @export
 validate_mortality <- function(n_sim = 5e+05, bgd = 1, bgd_h = 1, manual = 1, exacerbation = 1, comorbidity = 1) {
-  message("اعتبارسنجی ماژول شبیه‌سازی مرگ و میر")
+  message("اعتبارسنجی ماژول شبیه‌سازی مرگ‌و‌میر")
   petoc()
 
   settings <- default_settings
@@ -610,18 +621,18 @@ validate_mortality <- function(n_sim = 5e+05, bgd = 1, bgd_h = 1, manual = 1, ex
 
   if (Cget_output()$n_death > 0) {
 
-    ratio<-(Cget_output_ex()$n_death_by_age_sex[41:111,]/Cget_output_ex()$sum_time_by_age_sex[41:111,])/model_input$values$agent$p_bgd_by_sex[41:111,]
-    plot(40:110,ratio[,1],type='l',col='blue',xlab="age",ylab="Ratio", ylim = c(0, 4))
+    ratio<-(Cget_output_ex()$n_death_by_age_sex[41:81,]/Cget_output_ex()$sum_time_by_age_sex[41:81,])/model_input$values$agent$p_bgd_by_sex[41:81,]
+    plot(40:80,ratio[,1],type='l',col='blue',xlab="age",ylab="Ratio", ylim = c(0, 4))
     legend("topright",c("male","female"),lty=c(1,1),col=c("blue","red"))
-    lines(40:110,ratio[,2],type='l',col='red')
+    lines(40:80,ratio[,2],type='l',col='red')
     title(cex.main=0.5,"Ratio of simulated to expected (life table) mortality, by sex and age")
 
 
-    difference <- (Cget_output_ex()$n_death_by_age_sex[41:91, ]/Cget_output_ex()$sum_time_by_age_sex[41:91, ]) - model_input$values$agent$p_bgd_by_sex[41:91,
+    difference <- (Cget_output_ex()$n_death_by_age_sex[41:81, ]/Cget_output_ex()$sum_time_by_age_sex[41:81, ]) - model_input$values$agent$p_bgd_by_sex[41:81,
                                                                                                                                                        ]
-    plot(40:90, difference[, 1], type = "l", col = "blue", xlab = "age", ylab = "Difference", ylim = c(-.1, .1))
+    plot(40:80, difference[, 1], type = "l", col = "blue", xlab = "age", ylab = "Difference", ylim = c(-.1, .1))
     legend("topright", c("male", "female"), lty = c(1, 1), col = c("blue", "red"))
-    lines(40:90, difference[, 2], type = "l", col = "red")
+    lines(40:80, difference[, 2], type = "l", col = "red")
     title(cex.main = 0.5, "Difference between simulated and expected (life table) mortality, by sex and age")
 
     return(list(difference = difference))

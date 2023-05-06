@@ -2,7 +2,7 @@
 #' @param nPatients number of agents
 #' @return an excel file with all output
 #' @export
-export_figures <- function(nPatients = 1e4) {
+export_figures <- function(nPatients = 1e5) {
 
   if (!requireNamespace("openxlsx", quietly = TRUE)) {
     stop("Package \"openxlsx\" needed for this function to work. Please install it.",
@@ -183,7 +183,7 @@ export_figures <- function(nPatients = 1e4) {
   colnames(COPD_inc_by_year_sex) <- c("Year", "Male", "Female")
   colnames(SE_COPD_inc_by_year_sex) <- c("Male", "Female")
 
-  COPD_inc_by_year_sex[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  COPD_inc_by_year_sex[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   data_COPD_inc <- subset(data, event == 4)
 
@@ -210,7 +210,7 @@ export_figures <- function(nPatients = 1e4) {
   ####################################################### COPD Prevalence per year and sex  #####################################################
   COPD_prev_by_sex <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 3)
   colnames(COPD_prev_by_sex) <- c("Year", "Male", "Female")
-  COPD_prev_by_sex[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  COPD_prev_by_sex[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
   COPD_prev_by_sex[1:input$global_parameters$time_horizon,2:3] <- op_ex$n_COPD_by_ctime_sex / op_ex$n_alive_by_ctime_sex * 100 #converting to percentage
   openxlsx::writeData(wb, "COPD_prevalence_by_year_sex", COPD_prev_by_sex, startCol = 2, startRow = 3, colNames = TRUE)
 
@@ -225,7 +225,7 @@ export_figures <- function(nPatients = 1e4) {
   ## now cumul prevalence
   cumul_COPD_prev_by_sex <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 3)
   colnames(cumul_COPD_prev_by_sex) <- c("Year", "Male", "Female")
-  cumul_COPD_prev_by_sex[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  cumul_COPD_prev_by_sex[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
   cumul_COPD_prev_by_sex[1:input$global_parameters$time_horizon,2:3] <- op_ex$n_COPD_by_ctime_sex  / default_settings$n_base_agents * 25.2e6  #for entire Iran
 
   openxlsx::writeData(wb, "COPD_prevalence_by_year_sex", cumul_COPD_prev_by_sex, startCol = 2, startRow = 30, colNames = TRUE)
@@ -234,7 +234,7 @@ export_figures <- function(nPatients = 1e4) {
   dfm <- reshape2::melt(df[,c('Year','Male','Female')],id.vars = 1)
 
   plot_cumul_COPD_prev_by_sex <- ggplot2::ggplot(dfm, aes(x = Year, y = value, color = variable)) +  theme_tufte(base_size=14, ticks=F) +
-    geom_point () + geom_line() + labs(title = "Number of COPD cases by Year") + ylab ("Number of Cases")  +
+    geom_point () + geom_line() + labs(title = "Number of COPD cases by year") + ylab ("Number of cases ")  +
     scale_y_continuous(breaks = scales::pretty_breaks(n = 12)) + labs(caption = "")
 
 
@@ -341,7 +341,7 @@ export_figures <- function(nPatients = 1e4) {
 
   GOLD_perc_by_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
   colnames(GOLD_perc_by_year) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-  GOLD_perc_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  GOLD_perc_by_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
   GOLD_perc_by_year[1:input$global_parameters$time_horizon, 2] <- op_ex$n_COPD_by_ctime_severity[, 2]
   GOLD_perc_by_year[1:input$global_parameters$time_horizon, 3] <- op_ex$n_COPD_by_ctime_severity[, 3]
   GOLD_perc_by_year[1:input$global_parameters$time_horizon, 4] <- op_ex$n_COPD_by_ctime_severity[, 4]
@@ -366,7 +366,7 @@ export_figures <- function(nPatients = 1e4) {
 
   exac_severity_by_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
   colnames(exac_severity_by_year) <- c("Year", "Mild", "Moderate", "Severe", "Very Severe")
-  exac_severity_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  exac_severity_by_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   exac_severity_by_year[, 2:5] <- op_ex$n_exac_by_ctime_severity [, 1:4] / rowSums(op_ex$n_COPD_by_ctime_sex)[] * 1000
 
@@ -386,7 +386,7 @@ export_figures <- function(nPatients = 1e4) {
 
   exac_GOLD_by_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
   colnames(exac_GOLD_by_year) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-  exac_GOLD_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  exac_GOLD_by_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   exac_GOLD_by_year[, 2:5] <- op_ex$n_exac_by_ctime_GOLD [, 1:4] / rowSums(op_ex$n_COPD_by_ctime_sex)[] * 1000
 
@@ -406,7 +406,7 @@ export_figures <- function(nPatients = 1e4) {
 
   exac_rate_by_GOLD_by_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
   colnames(exac_rate_by_GOLD_by_year) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-  exac_rate_by_GOLD_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  exac_rate_by_GOLD_by_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   exac_rate_by_GOLD_by_year[, 2:5] <- op_ex$n_exac_by_ctime_GOLD [, 1:4] / (op_ex$cumul_time_by_ctime_GOLD)[,2:5]
 
@@ -426,7 +426,7 @@ export_figures <- function(nPatients = 1e4) {
 
   exac_rate_by_sex_by_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 3)
   colnames(exac_rate_by_sex_by_year) <- c("Year", "male", "female")
-  exac_rate_by_sex_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  exac_rate_by_sex_by_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   exac_rate_by_sex_by_year[, 3] <- rowSums(op_ex$n_exac_by_ctime_severity_female [, 1:4]) / (op_ex$n_COPD_by_ctime_sex)[, 2]
   exac_rate_by_sex_by_year[, 2] <- rowSums(op_ex$n_exac_by_ctime_severity [, 1:4] - op_ex$n_exac_by_ctime_severity_female [, 1:4]) / (op_ex$n_COPD_by_ctime_sex)[, 1]
@@ -446,7 +446,7 @@ export_figures <- function(nPatients = 1e4) {
   ## now cumul prevalence
   cumul_exac_rate_by_sex_by_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 3)
   colnames(cumul_exac_rate_by_sex_by_year) <- c("Year", "male", "female")
-  cumul_exac_rate_by_sex_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  cumul_exac_rate_by_sex_by_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   cumul_exac_rate_by_sex_by_year[, 3] <- rowSums(op_ex$n_exac_by_ctime_severity_female [, 1:4]) / default_settings$n_base_agents * 25.2e6 #for entire Iran
   cumul_exac_rate_by_sex_by_year[, 2] <- rowSums(op_ex$n_exac_by_ctime_severity [, 1:4] - op_ex$n_exac_by_ctime_severity_female [, 1:4]) / default_settings$n_base_agents * 25.2e6
@@ -469,7 +469,7 @@ export_figures <- function(nPatients = 1e4) {
 
   sev_exac_by_sex_by_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 3)
   colnames(sev_exac_by_sex_by_year) <- c("Year", "male", "female")
-  sev_exac_by_sex_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  sev_exac_by_sex_by_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   sev_exac_by_sex_by_year[, 3] <- rowSums(op_ex$n_exac_by_ctime_severity_female [, 3:4]) / (op_ex$n_COPD_by_ctime_sex)[, 2]
   sev_exac_by_sex_by_year[, 2] <- rowSums(op_ex$n_exac_by_ctime_severity [, 3:4] - op_ex$n_exac_by_ctime_severity_female [, 3:4]) / (op_ex$n_COPD_by_ctime_sex)[, 1]
@@ -490,7 +490,7 @@ export_figures <- function(nPatients = 1e4) {
 
   exac_by_age_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 6)
   colnames(exac_by_age_year) <- c("Year", "40-55", "55-70", "70-85", "85+", "All")
-  exac_by_age_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  exac_by_age_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   for (i in (1:3)){
   exac_by_age_year[, i+1] <- rowSums(op_ex$n_exac_by_ctime_age [, (25+(15*i)):(35+15*(i+1-1))])
@@ -516,7 +516,7 @@ export_figures <- function(nPatients = 1e4) {
 
   # cost_by_GOLD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
   # colnames(cost_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-  # cost_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  # cost_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
   # cost_by_GOLD[, 2:5] <- (op_ex$cumul_cost_gold_ctime [, 2:5])
   #
   # for (i in (input$global_parameters$time_horizon:2)){
@@ -538,7 +538,7 @@ export_figures <- function(nPatients = 1e4) {
   # ## now cumul QALY
   # Cumul_cost_by_GOLD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
   # colnames(Cumul_cost_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-  # Cumul_cost_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  # Cumul_cost_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
   # Cumul_cost_by_GOLD[, 2:5] <- (op_ex$cumul_cost_gold_ctime [, 2:5])/1e6 / default_settings$n_base_agents * 25.2e6  #per million for entire Canada
   #
   # Cumul_cost_by_GOLD <- as.data.frame(Cumul_cost_by_GOLD)
@@ -557,7 +557,7 @@ export_figures <- function(nPatients = 1e4) {
 #
 #   QALY_by_GOLD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
 #   colnames(QALY_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-#   QALY_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+#   QALY_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 #
 #   QALY_by_GOLD[, 2:5] <- (op_ex$cumul_qaly_gold_ctime [, 2:5])
 #
@@ -581,7 +581,7 @@ export_figures <- function(nPatients = 1e4) {
 #   ## now cumul QALY
 #   Cumul_QALY_by_GOLD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
 #   colnames(Cumul_QALY_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-#   Cumul_QALY_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+#   Cumul_QALY_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 #
 #   Cumul_QALY_by_GOLD[, 2:5] <- (op_ex$cumul_qaly_gold_ctime [, 2:5]) / default_settings$n_base_agents * 25.2e6
 #   Cumul_QALY_by_GOLD <- as.data.frame(Cumul_QALY_by_GOLD)
@@ -604,7 +604,7 @@ export_figures <- function(nPatients = 1e4) {
   num_COPD_related_mortality_by_age <- matrix (0, nrow = 12, ncol = 3) #40-45, 45-50, 50-55, ..., 90-95, 95-max
   denom_COPD_related_mortality_by_age <- matrix (0, nrow = 12, ncol = 3) #40-45, 45-50, 50-55, ..., 90-95, 95-max
 
-  #COPD_related_mortality_by_age[, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  #COPD_related_mortality_by_age[, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   for (i in 1:11) {
     for (j in 0:4) {
@@ -641,7 +641,7 @@ export_figures <- function(nPatients = 1e4) {
   COPD_death_by_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 4)
   colnames(COPD_death_by_year) <- c("Year", "Male", "Female", "All")
   data_COPD_death <- subset (data, event == 7)
-  COPD_death_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  COPD_death_by_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   for (i in 1:input$global_parameters$time_horizon) {
     COPD_death_by_year[i, 2] <- dim(subset(data_COPD_death, ((female == 0) & (floor(local_time + time_at_creation)==i))))[1] / op_ex$n_COPD_by_ctime_sex[i, 1] * 100
@@ -690,7 +690,7 @@ export_figures <- function(nPatients = 1e4) {
 
   population_by_sex_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 4)
   colnames(population_by_sex_year) <- c("Year", "male", "female", "all")
-  population_by_sex_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  population_by_sex_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   population_by_sex_year[, 2] <- (op_ex$n_alive_by_ctime_sex [, 1]) #male
   population_by_sex_year[, 3] <- (op_ex$n_alive_by_ctime_sex [, 2]) #female
@@ -724,7 +724,7 @@ export_figures <- function(nPatients = 1e4) {
   }
 
   smokers_by_year <- 100 * smokers_by_year / smokers_by_year [, 5]
-  smokers_by_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  smokers_by_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
   smokers_by_year <- as.data.frame(smokers_by_year)
   openxlsx::writeData(wb, "Smokers_by_year", smokers_by_year, startCol = 2, startRow = 3, colNames = TRUE)
   dfm <- reshape2::melt(smokers_by_year[,c("Year", "Never_Smoked", "Former_Smoker", "Smoker")],id.vars = 1)
@@ -740,7 +740,7 @@ export_figures <- function(nPatients = 1e4) {
   #####################################################   mortality_by_smoking_per_year  #####################################################
   mortality_by_smoking_per_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
   colnames(mortality_by_smoking_per_year) <- c("Year", "Never_Smoked", "Former_Smoker", "Smoker", "All")
-  mortality_by_smoking_per_year[1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  mortality_by_smoking_per_year[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   data_annual <- subset(data, event == 1)
   data_deaths <- subset(data, ((event == 7) | (event == 13)))
@@ -766,7 +766,7 @@ export_figures <- function(nPatients = 1e4) {
   #####################################################   All_cause mortality for COPD patients #####################################################
   all_cause_mortality_COPD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 4)
   colnames(all_cause_mortality_COPD) <- c("Year", "Male", "Female", "All")
-  all_cause_mortality_COPD [1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  all_cause_mortality_COPD [1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   data_annual_COPD <- subset(data, ((event == 1) & (gold > 0)))
   data_deaths_COPD <- subset(data, ((event == 7) | (event == 13)))
@@ -793,7 +793,7 @@ export_figures <- function(nPatients = 1e4) {
   #####################################################  Exacerbation mortality by severity and year #####################################################
   exac_mortality_by_sev_year <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 4)
   colnames(exac_mortality_by_sev_year) <- c("Year", "Mild", "Moderate", "Severe and Very Severe")
-  exac_mortality_by_sev_year  [1:input$global_parameters$time_horizon, 1] <- c(2015:(2015+input$global_parameters$time_horizon-1))
+  exac_mortality_by_sev_year  [1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
 
   exac_mortality_by_sev_year [, 2:3] <- op_ex$n_exac_death_by_ctime_severity [,1:2] / op_ex$n_exac_by_ctime_severity[, 1:2] * 100
   exac_mortality_by_sev_year [, 4] <- (op_ex$n_exac_death_by_ctime_severity [, 3] + op_ex$n_exac_death_by_ctime_severity [, 4])  / (op_ex$n_exac_by_ctime_severity[, 3] + op_ex$n_exac_by_ctime_severity[, 4]) * 100
@@ -818,7 +818,7 @@ export_figures <- function(nPatients = 1e4) {
   avg_pack_years_ctime <- matrix (NA, nrow = input$global_parameters$time_horizon + 1, ncol = 4)
   colnames(avg_pack_years_ctime) <- c("Year", "Smokers PYs", "Former Smokers PYs", "all")
 
-  avg_pack_years_ctime[1:(input$global_parameters$time_horizon + 1), 1] <- c(2015:(2015 + input$global_parameters$time_horizon))
+  avg_pack_years_ctime[1:(input$global_parameters$time_horizon + 1), 1] <- c(1394:(1394 + input$global_parameters$time_horizon))
 
   for (i in 0:input$global_parameters$time_horizon) {
     smokers <- subset (dataS, (floor(local_time + time_at_creation) == (i)) & smoking_status != 0)
