@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/resplab/epicR/workflows/R-CMD-check/badge.svg)](https://github.com/resplab/epicR/actions)
+[![R-CMD-check](https://github.com/aminadibi/epicIR/workflows/R-CMD-check/badge.svg)](https://github.com/aminadibi/epicIR/actions)
 <!-- badges: end -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
@@ -11,7 +11,7 @@ Sadatsafavi, M., Ghanbarian, S., Adibi, A., Johnson, K., Mark FitzGerald, J., Fl
 Johnson KM, Sadatsafavi M, Adibi A, Lynd L, Harrison M, Tavakoli H, Sin DD, Bryan S. Cost effectiveness of case detection strategies for the early detection of COPD. Applied Health Economics and Health Policy. 2021 Mar;19(2):203-15. [https://doi.org/10.1007/s40258-020-00616-2](https://doi.org/10.1007/s40258-020-00616-2)
 
 ## بررسی اجمالی
-epicR یک رابط کاربری را برای برقراری ارتباط با ارزیابی پلتفرم COPD (EPIC) ارائه می‌دهد، یک مدل شبیه‌سازی رویداد گسسته (DES) کل بیماری برای بیماری مزمن انسدادی ریوی.
+epicIR یک رابط کاربری را برای برقراری ارتباط با ارزیابی پلتفرم COPD (EPIC) ارائه می‌دهد، یک مدل شبیه‌سازی رویداد گسسته (DES) کل بیماری برای بیماری مزمن انسدادی ریوی.
 
 ## نصب
 ### ویندوز 
@@ -24,13 +24,13 @@ epicR یک رابط کاربری را برای برقراری ارتباط با 
   install.packages('remotes')
 ```
 
-5. epicR را از GitHub نصب کنید:
+5. مدل را از گیت‌هاب نصب کنید
 
 ```r
-remotes::install_github('resplab/epicR')
+remotes::install_github('aminadibi/epicIR')
 ```
 
-### Mac OS Sierra و بعد
+### مک او اس
 1. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/) دانلود و نصب کنید
 2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
 
@@ -45,12 +45,12 @@ remotes::install_github('resplab/epicR')
 install.packages (c('remotes', 'usethis'))
 ```
 
-6. حالا باید بتوانید epicR را از GitHub نصب کنید:
+6. حالا باید بتوانید epicIR را از GitHub نصب کنید:
 ```r
-remotes::install_github('resplab/epicR')
+remotes::install_github('aminadibi/epicIR')
 ```
 
-### Ubuntu 
+### اوبونتو 
 1. R را از نشانی [https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html] دانلود و نصب کنید:
 
 2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
@@ -66,10 +66,10 @@ remotes::install_github('resplab/epicR')
 install.packages ('remotes')
 ```
 
-5. epicR را از GitHub نصب کنید:
+5. epicIR را از GitHub نصب کنید:
 
 ```r
-remotes::install_github('resplab/epicR')
+remotes::install_github('aminadibi/epicIR')
 ```
 
 # راهنمای سریع
