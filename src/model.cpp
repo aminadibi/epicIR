@@ -625,6 +625,8 @@ struct input
     double ln_h_ces_betas[6]; //intercept, sex, age, age*2 calendar time diagnosis,
     double smoking_ces_coefficient; //coefficient for the decay rate of smoking cessation treatment
     double smoking_cessation_adherence;
+    double smoking_packs_per_day_by_sex[2];
+
   } smoking;
 
 
@@ -819,7 +821,8 @@ List Cget_inputs()
       Rcpp::Named("mortality_factor_former")=AS_VECTOR_DOUBLE(input.smoking.mortality_factor_former),
       Rcpp::Named("ln_h_ces_betas")=AS_VECTOR_DOUBLE(input.smoking.ln_h_ces_betas),
       Rcpp::Named("smoking_ces_coefficient")=input.smoking.smoking_ces_coefficient,
-      Rcpp::Named("smoking_cessation_adherence")=input.smoking.smoking_cessation_adherence
+      Rcpp::Named("smoking_cessation_adherence")=input.smoking.smoking_cessation_adherence,
+      Rcpp::Named("smoking_packs_per_day_by_sex")=AS_VECTOR_DOUBLE(input.smoking.smoking_packs_per_day_by_sex)
     ),
     Rcpp::Named("COPD")=Rcpp::List::create(
       Rcpp::Named("ln_h_COPD_betas_by_sex")=AS_MATRIX_DOUBLE(input.COPD.ln_h_COPD_betas_by_sex),
@@ -977,6 +980,8 @@ int Cset_input_var(std::string name, NumericVector value)
   if(name=="smoking$ln_h_ces_betas") READ_R_VECTOR(value,input.smoking.ln_h_ces_betas);
   if(name=="smoking$smoking_ces_coefficient") {input.smoking.smoking_ces_coefficient=value[0]; return(0);}
   if(name=="smoking$smoking_cessation_adherence") {input.smoking.smoking_cessation_adherence=value[0]; return(0);}
+  if(name=="smoking$smoking_packs_per_day_by_sex") READ_R_VECTOR(value,input.smoking.smoking_packs_per_day_by_sex);
+
 
   if(name=="COPD$ln_h_COPD_betas_by_sex") READ_R_MATRIX(value,input.COPD.ln_h_COPD_betas_by_sex);
   if(name=="COPD$logit_p_COPD_betas_by_sex") READ_R_MATRIX(value,input.COPD.logit_p_COPD_betas_by_sex);
@@ -1949,7 +1954,7 @@ void smoking_LPT(agent *ag)
     else output_ex.cumul_time_by_smoking_status[1]+=(*ag).local_time-(*ag).smoking_status_LPT;
 #endif
 
-    (*ag).pack_years+=(*ag).smoking_status*((*ag).local_time-(*ag).smoking_status_LPT);
+    (*ag).pack_years+=input.lung_function.fev1_0_prev_sd_by_sex[(*ag).sex]*(*ag).smoking_status*((*ag).local_time-(*ag).smoking_status_LPT);
     (*ag).smoking_status_LPT=(*ag).local_time;
 }
 

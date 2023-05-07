@@ -20,13 +20,8 @@ session_env$agent_creation_mode<-c(
 
 # Cleaning up when package unloads
 .onUnload <- function(libpath) {
-  library.dynam.unload("epicR", libpath)
+  library.dynam.unload("epicIR", libpath)
 }
-
-
-
-
-
 
 
 default_settings <- list(record_mode = session_env$record_mode["record_mode_none"],
@@ -51,7 +46,6 @@ get_default_settings<-function()
 }
 
 
-
 # Population of Canada over 40 years by StatsCan 18,415.60
 
 #' Initializes a model. Allocates memory to the C engine.
@@ -59,7 +53,7 @@ get_default_settings<-function()
 #' @return 0 if successful.
 #' @export
 init_session <- function(settings = get_default_settings()) {
-  message("Initializing the session")
+  message("شروع نشست جدید")
   if (exists("Cdeallocate_resources"))
     Cdeallocate_resources()
   if (!is.null(settings))
@@ -74,7 +68,7 @@ init_session <- function(settings = get_default_settings()) {
 #' @return 0 if successful.
 #' @export
 terminate_session <- function() {
-  message("Terminating the session")
+  message("پایان نشست فعلی")
   session_env$initialized <- FALSE
   return(Cdeallocate_resources())
 }
@@ -96,7 +90,6 @@ apply_settings <- function(settings = settings) {
 }
 
 
-
 update_run_env_setting <- function(setting_var, value) {
   res <- Cset_settings_var(setting_var, value)
   if (res < 0)
@@ -104,8 +97,6 @@ update_run_env_setting <- function(setting_var, value) {
   settings[setting_var] <<- value
   return(0)
 }
-
-
 
 
 #' Get list elements
@@ -172,7 +163,6 @@ express_matrix <- function(mtx) {
 }  #Takes a named matrix and write the R code to populate it; good for generating input expressions from calibration results
 
 
-
 #' Returns events specific to an agent.
 #' @param id Agent number
 #' @return dataframe consisting all events specific to agent \code{id}
@@ -204,8 +194,6 @@ get_all_events <- function() {
   names(data) <- names(x[[1]])
   return(data)
 }
-
-
 
 #' Runs the model, after a session has been initialized.
 #' @param max_n_agents maximum number of agents
@@ -247,8 +235,6 @@ run <- function(max_n_agents = NULL, input = NULL) {
 }
 
 
-
-
 #' Resumes running of model.
 #' @param max_n_agents maximum number of agents
 #' @return 0 if successful.
@@ -262,8 +248,6 @@ resume <- function(max_n_agents = NULL) {
   }
   return(res)
 }
-
-
 
 
 # processes input and returns the processed one
@@ -281,8 +265,6 @@ process_input <- function(ls, decision = 1)
   }
   return(ls)
 }
-
-
 
 
 reset_errors<-function()

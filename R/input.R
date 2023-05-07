@@ -290,6 +290,13 @@ get_input <- function(age0 = 40,
   input$smoking$pack_years_0_sd <- 5
   input_ref$smoking$pack_years_0_sd <- ""
 
+  input_help$smoking$smoking_packs_per_day_by_sex <- "Average Packs smoked per day by sex"
+  input$smoking$smoking_packs_per_day_by_sex <- c(male = 13.9/20, female = 9.6/20)
+  input_ref$smoking$smoking_packs_per_day_by_sex <- "https://tobaccocontrol.bmj.com/content/19/2/125"
+
+  input_help$smoking$smoking_cessation_adherence <- "Proportion adherent to smoking cessation treatment"
+  input$smoking$smoking_cessation_adherence <- 0.7
+  input_ref$smoking$smoking_cessation_adherence <- ""
 
   input_help$smoking$ln_h_inc_betas <- "Log-hazard of starting smoking (incidence or relapse)"
   input$smoking$ln_h_inc_betas <- c(intercept = -3.2, sex = -2.35, age = -0.02, age2 = 0, calendar_time = -0.01)
@@ -307,6 +314,9 @@ get_input <- function(age0 = 40,
   input_help$smoking$smoking_cessation_adherence <- "Proportion adherent to smoking cessation treatment"
   input$smoking$smoking_cessation_adherence <- 0.7
   input_ref$smoking$smoking_cessation_adherence <- ""
+
+
+
 
 
   ## COPD
