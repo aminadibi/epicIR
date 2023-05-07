@@ -3,39 +3,37 @@
 <!-- badges: end -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
-
 # epicIR
-R package for Evaluation Platform in COPD (EPIC), localized for Iran. Please refer to the published papers for more information: 
+بسته‌ی R برای ارزیابی پلتفرم COPD (EPIC)، محلی‌سازی شده برای ایران. لطفاً برای اطلاعات بیشتر به مقالات منتشر شده مراجعه کنید:
 
 Sadatsafavi, M., Ghanbarian, S., Adibi, A., Johnson, K., Mark FitzGerald, J., Flanagan, W., … Sin, D. (2019). Development and Validation of the Evaluation Platform in COPD (EPIC): A Population-Based Outcomes Model of COPD for Canada. Medical Decision Making. [https://doi.org/10.1177/0272989X18824098](https://doi.org/10.1177/0272989X18824098)
 
 Johnson KM, Sadatsafavi M, Adibi A, Lynd L, Harrison M, Tavakoli H, Sin DD, Bryan S. Cost effectiveness of case detection strategies for the early detection of COPD. Applied Health Economics and Health Policy. 2021 Mar;19(2):203-15. [https://doi.org/10.1007/s40258-020-00616-2](https://doi.org/10.1007/s40258-020-00616-2)
 
-## Overview
-epicR provides an interface to to interact with the Evaluation Platform in COPD (EPIC), a discrete-event-simulation (DES) whole-disease model of Chronic Onstructive Pulmonary Disease.
+## بررسی اجمالی
+epicR یک رابط کاربری را برای برقراری ارتباط با ارزیابی پلتفرم COPD (EPIC) ارائه می‌دهد، یک مدل شبیه‌سازی رویداد گسسته (DES) کل بیماری برای بیماری مزمن انسدادی ریوی.
 
-## Installation
-### Windows 7 or Later
-1. Download and Install the latest version of R from [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/)
-2. Download and Install R Studio from [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
-3. Download and Install the latest version of Rtools from [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/) 
-4. Using either an R session in Terminal or in R Studio, install the package `devtools`:
+## نصب
+### Windows 7 یا بعد
+1. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/) دانلود و نصب کنید
+2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
+3. آخرین نسخه‌ی Rtools را از [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/) دانلود و نصب کنید
+4. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌ی `devtools` را نصب کنید:
 
 ```r
   install.packages('remotes')
 ```
 
-5. Install epicR from GitHub:
+5. epicR را از GitHub نصب کنید:
 
 ```r
 remotes::install_github('resplab/epicR')
 ```
 
-
-### Mac OS Sierra and Later
-1. Download and Install the latest version of R from [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/)
-2. Download and Install R Studio from [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
-3. Open the Terminal and remove previous installations of `clang`:
+### Mac OS Sierra و بعد
+1. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/) دانلود و نصب کنید
+2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
+3. ترمینال را باز کنید و نصب‌های قبلی `clang` را حذف کنید:
 
 ```bash
 # Delete the clang4 binary
@@ -60,26 +58,26 @@ sudo rm /private/var/db/receipts/com.rbinaries.clang4.plist
 # Remove the Makevars file
 rm ~/.R/Makevars
 ```
-4. Install the latest version of `clang` by installing Xcode command tools: 
-`xcode-select --install
+4. آخرین نسخه‌ی `clang` را با نصب ابزارهای دستوری Xcode نصب کنید:
+`xcode-select --install`
 
-5. Install the appropriate version of `gfortran` based on your Mac OS version using the dmg file found at [https://github.com/fxcoudert/gfortran-for-macOS/releases](https://github.com/fxcoudert/gfortran-for-macOS/releases) 
+5. نسخه‌ی مناسب `gfortran` را بر اساس نسخه‌ی Mac OS خود با استفاده از فایل dmg در [https://github.com/fxcoudert/gfortran-for-macOS/releases](https://github.com/fxcoudert/gfortran-for-macOS/releases) نصب کنید
 
-6. Using either an R session in Terminal or in R Studio, install the packages `remotes` and `usethis`:
+6. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌های `remotes` و `usethis` را نصب کنید:
 
 ```r
 install.packages (c('remotes', 'usethis'))
 ```
-7. Open the `.Renviron` file usibng the command `usethis::edit_r_environ()`
-8. Add the line `PATH="/usr/local/clang8/bin:${PATH}"` to the file. If you installed any clang version above 8, modify the file accordingly. Save the `.Renviron` file and restart R.  
+7. فایل `.Renviron` را با دستور `usethis::edit_r_environ()` باز کنید
+8. خط `PATH="/usr/local/clang8/bin:${PATH}"` را به فایل اضافه کنید. اگر نسخه‌ای از clang بالاتر از 8 نصب کرده‌اید، فایل را مطابق آن تغییر دهید. فایل `.Renviron` را ذخیره کنید و R را دوباره راه‌اندازی کنید.
 
-9. You should now be able to Install epicR from GitHub:
+9. حالا باید بتوانید epicR را از GitHub نصب کنید:
 ```r
 remotes::install_github('resplab/epicR')
 ```
 
-### Ubuntu 16.04 and Later
-1. Install R by executing the following commands in Terminal:
+### Ubuntu 16.04 و بعد
+1. R را با اجرای دستورات زیر در ترمینال نصب کنید:
 
 ```bash
   sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
@@ -93,25 +91,25 @@ remotes::install_github('resplab/epicR')
 ```bash
   sudo apt-get install r-base
 ```
-If the installation is successful, you should be able to start R:
+اگر نصب موفقیت‌آمیز بود، شما باید بتوانید R را شروع کنید:
 ```bash
   sudo -i R
 ```
 
-2. Download and Install R Studio from [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
-3. Install `libcurl` from Terminal: 
+2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
+3. `libcurl` را از ترمینال نصب کنید:
 
 ```bash
   sudo apt-get install libcurl4-openssl-dev libssl-dev
 ```
 
-4. Using either an R session in Terminal or in R Studio, install the package `devtools`:
+4. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌ی `devtools` را نصب کنید:
 
 ```r
 install.packages ('remotes')
 ```
-  
-5. Install epicR from GitHub:
+
+5. epicR را از GitHub نصب کنید:
 
 ```r
 remotes::install_github('resplab/epicR')
