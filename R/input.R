@@ -323,9 +323,9 @@ get_input <- function(age0 = 40,
   input_help$COPD$logit_p_COPD_betas_by_sex <- "Logit of the probability of having COPD (FEV1/FVC<0.7) at time of creation (separately by sex)"
   input$COPD$logit_p_COPD_betas_by_sex <- cbind(male = c(intercept = -4.522189  , age = 0.033070   , age2 = 0, pack_years = 0.025049   ,
                                                          current_smoking = 0, year = 0, asthma = 0),
-                                                female = c(intercept = -4.074861   , age = 0.027359   , age2 = 0, pack_years = 0.030399   ,
+                                                female = c(intercept = -4.074861-0.3   , age = 0.027359   , age2 = 0, pack_years = 0.030399   ,
                                                            current_smoking = 0, year = 0, asthma = 0))
-  input_ref$COPD$logit_p_COPD_betas_by_sex <- "CanCold - Shahzad's Derivation. Last Updated on 2017-09-19, ne wmodel with no currnet smoker term"
+  input_ref$COPD$logit_p_COPD_betas_by_sex <- "CanCold Last Updated on 2017-09-19, calibrated for lower rate in women in Iran."
 
 
   input_help$COPD$ln_h_COPD_betas_by_sex <- "Log-hazard of developing COPD (FEV1/FVC<LLN) for those who did not have COPD at creation time (separately by sex)"
