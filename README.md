@@ -16,8 +16,11 @@ Johnson KM, Sadatsafavi M, Adibi A, Lynd L, Harrison M, Tavakoli H, Sin DD, Brya
 ## نصب
 ### ویندوز 
 ۱. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/) دانلود و نصب کنید
+
 ۲. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
+
 ۳. آخرین نسخه‌ی Rtools را از [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/) دانلود و نصب کنید
+
 ۴. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌ی `devtools` را نصب کنید:
 
 ```r
@@ -32,6 +35,7 @@ remotes::install_github('aminadibi/epicIR')
 
 ### مک او اس
 ۱. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/) دانلود و نصب کنید
+
 ۲. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
 
 ۳. آخرین نسخه‌ی `clang` را با نصب ابزارهای دستوری Xcode نصب کنید:
