@@ -5,6 +5,7 @@
 
 # epicIR
 مدل جامع بررسی بیماری مزمن انسدادی ریه - بومی‌شده برای ایران. برای اطلاعات بیش‌تر به مقالات منتشر شده مراجعه کنید:
+
 Sadatsafavi, M., Ghanbarian, S., Adibi, A., Johnson, K., Mark FitzGerald, J., Flanagan, W., … Sin, D. (2019). Development and Validation of the Evaluation Platform in COPD (EPIC): A Population-Based Outcomes Model of COPD for Canada. Medical Decision Making. [https://doi.org/10.1177/0272989X18824098](https://doi.org/10.1177/0272989X18824098)
 
 Johnson KM, Sadatsafavi M, Adibi A, Lynd L, Harrison M, Tavakoli H, Sin DD, Bryan S. Cost effectiveness of case detection strategies for the early detection of COPD. Applied Health Economics and Health Policy. 2021 Mar;19(2):203-15. [https://doi.org/10.1007/s40258-020-00616-2](https://doi.org/10.1007/s40258-020-00616-2)
@@ -13,7 +14,7 @@ Johnson KM, Sadatsafavi M, Adibi A, Lynd L, Harrison M, Tavakoli H, Sin DD, Brya
 epicR یک رابط کاربری را برای برقراری ارتباط با ارزیابی پلتفرم COPD (EPIC) ارائه می‌دهد، یک مدل شبیه‌سازی رویداد گسسته (DES) کل بیماری برای بیماری مزمن انسدادی ریوی.
 
 ## نصب
-### Windows 7 یا بعد
+### ویندوز 
 1. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/) دانلود و نصب کنید
 2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
 3. آخرین نسخه‌ی Rtools را از [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/) دانلود و نصب کنید
@@ -32,68 +33,25 @@ remotes::install_github('resplab/epicR')
 ### Mac OS Sierra و بعد
 1. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/) دانلود و نصب کنید
 2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
-3. ترمینال را باز کنید و نصب‌های قبلی `clang` را حذف کنید:
 
-```bash
-# Delete the clang4 binary
-sudo rm -rf /usr/local/clang4
-# Delete the clang6 binary
-sudo rm -rf /usr/local/clang6
-
-# Delete the prior version of gfortran installed
-sudo rm -rf /usr/local/gfortran
-sudo rm -rf /usr/local/bin/gfortran
-
-# Remove the install receipts that indicate a package is present
-
-# Remove the gfortran install receipts (run after the above commands)
-sudo rm /private/var/db/receipts/com.gnu.gfortran.bom
-sudo rm /private/var/db/receipts/com.gnu.gfortran.plist
-
-# Remove the clang4 installer receipt
-sudo rm /private/var/db/receipts/com.rbinaries.clang4.bom
-sudo rm /private/var/db/receipts/com.rbinaries.clang4.plist
-
-# Remove the Makevars file
-rm ~/.R/Makevars
-```
-4. آخرین نسخه‌ی `clang` را با نصب ابزارهای دستوری Xcode نصب کنید:
+3. آخرین نسخه‌ی `clang` را با نصب ابزارهای دستوری Xcode نصب کنید:
 `xcode-select --install`
 
-5. نسخه‌ی مناسب `gfortran` را بر اساس نسخه‌ی Mac OS خود با استفاده از فایل dmg در [https://github.com/fxcoudert/gfortran-for-macOS/releases](https://github.com/fxcoudert/gfortran-for-macOS/releases) نصب کنید
+4. نسخه‌ی مناسب `gfortran` را بر اساس نسخه‌ی Mac OS خود با استفاده از فایل dmg در [https://mac.r-project.org/tools/) نصب کنید
 
-6. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌های `remotes` و `usethis` را نصب کنید:
+5. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌های `remotes` و `usethis` را نصب کنید:
 
 ```r
 install.packages (c('remotes', 'usethis'))
 ```
-7. فایل `.Renviron` را با دستور `usethis::edit_r_environ()` باز کنید
-8. خط `PATH="/usr/local/clang8/bin:${PATH}"` را به فایل اضافه کنید. اگر نسخه‌ای از clang بالاتر از 8 نصب کرده‌اید، فایل را مطابق آن تغییر دهید. فایل `.Renviron` را ذخیره کنید و R را دوباره راه‌اندازی کنید.
 
-9. حالا باید بتوانید epicR را از GitHub نصب کنید:
+6. حالا باید بتوانید epicR را از GitHub نصب کنید:
 ```r
 remotes::install_github('resplab/epicR')
 ```
 
-### Ubuntu 16.04 و بعد
-1. R را با اجرای دستورات زیر در ترمینال نصب کنید:
-
-```bash
-  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-```
-```bash
-  sudo add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu xenial/'
-```
-```bash
-  sudo apt-get update
-```
-```bash
-  sudo apt-get install r-base
-```
-اگر نصب موفقیت‌آمیز بود، شما باید بتوانید R را شروع کنید:
-```bash
-  sudo -i R
-```
+### Ubuntu 
+1. R را از نشانی [https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html] دانلود و نصب کنید:
 
 2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
 3. `libcurl` را از ترمینال نصب کنید:
