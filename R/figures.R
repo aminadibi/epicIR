@@ -37,15 +37,10 @@ export_figures <- function(nPatients = 1e5) {
   openxlsx::addWorksheet(wb, "COPD_incidence_by_age_group_sex")
   openxlsx::addWorksheet(wb, "COPD_prevalence_by_year_sex")
   openxlsx::addWorksheet(wb, "Prev_Age_Group_CanCOLD-BOLD")
-  openxlsx::addWorksheet(wb, "COPD_prev_by_age_group_GOLD")
   openxlsx::addWorksheet(wb, "COPD_related_mortality_by_age")
   openxlsx::addWorksheet(wb, "COPD_related_mortality_by_year")
   openxlsx::addWorksheet(wb, "Age_Specific_Mortality_per1000")
-  openxlsx::addWorksheet(wb, "Cost_by_GOLD")
-  openxlsx::addWorksheet(wb, "QALY_by_GOLD")
-  openxlsx::addWorksheet(wb, "Clinical_trials")
   openxlsx::addWorksheet(wb, "GOLD_stage_by_year")
-  openxlsx::addWorksheet(wb, "GOLD_by_sex_CanCOLD")
   openxlsx::addWorksheet(wb, "FEV1_by_sex_year")
   openxlsx::addWorksheet(wb, "Exacerbation_severity_per1000")
   openxlsx::addWorksheet(wb, "Exacerbation_GOLD_per1000")
@@ -67,20 +62,15 @@ export_figures <- function(nPatients = 1e5) {
   ##################################################### List of Figures #####################################################
   list_of_figures <- matrix (NA, nrow = 27, ncol = 3)
   colnames(list_of_figures) <- c("Name", "Description", "epicIR version")
-  list_of_figures[1:27, 1] <- c(  "COPD_incidence_by_age_sex",
+  list_of_figures[1:22, 1] <- c(  "COPD_incidence_by_age_sex",
                                   "COPD_incidence_by_year_sex",
                                   "COPD_incidence_by_age_group_sex",
                                   "COPD_prevalence_by_year_sex",
                                   "Prev_Age_Group_CanCOLD-BOLD",
-                                  "COPD_prev_by_age_group_GOLD",
                                   "COPD_related_mortality_by_age",
                                   "COPD_related_mortality_by_year",
                                   "Age_Specific_Mortality_per1000",
-                                  "Cost_by_GOLD",
-                                  "QALY_by_GOLD",
-                                  "Clinical_trials",
                                   "GOLD_stage_by_year",
-                                  "GOLD_by_sex_CanCOLD",
                                   "FEV1_by_sex_year",
                                   "Exacerbation_severity_per1000",
                                   "Exacerbation_GOLD_per1000",
@@ -234,7 +224,7 @@ export_figures <- function(nPatients = 1e5) {
   dfm <- reshape2::melt(df[,c('Year','Male','Female')],id.vars = 1)
 
   plot_cumul_COPD_prev_by_sex <- ggplot2::ggplot(dfm, aes(x = Year, y = value, color = variable)) +  theme_tufte(base_size=14, ticks=F) +
-    geom_point () + geom_line() + labs(title = "Number of COPD cases by year") + ylab ("Number of cases ")  +
+    geom_point () + geom_line() + labs(title = "Cumulative COPD cases by year") + ylab ("Number of cases ")  +
     scale_y_continuous(breaks = scales::pretty_breaks(n = 12)) + labs(caption = "")
 
 
@@ -279,33 +269,6 @@ export_figures <- function(nPatients = 1e5) {
 
   plot(plot_COPD_prev_by_agegroup) #plot needs to be showing
   openxlsx::insertPlot(wb, "Prev_Age_Group_CanCOLD-BOLD",  xy = c("G", 3), width = 20, height = 13.2 , fileType = "png", units = "cm")
-
-  ##################################################### COPD Prevalence by Age Group and GOLD #####################################################
-
-  # COPD_prev_by_agegroup_GOLD <- matrix (0, nrow = 4, ncol = 4) #40-55, 55-70, 70-85, 85+
-  # num_COPD_prev_by_agegroup_GOLD <- matrix (0, nrow = 4, ncol = 4) #40-55, 55-70, 70-85, 85+
-  # denom_COPD_prev_by_agegroup_GOLD <- matrix (0, nrow = 4, ncol = 4) #40-55, 55-70, 70-85, 85+
-  #
-  # for (i in (1:3)) {
-  #   for (j in (0:15)) {
-  #    num_COPD_prev_by_agegroup_GOLD [i, ] <- num_COPD_prev_by_agegroup_GOLD [i, ] + op_ex$COPD
-
-
-   # }
-  #}
-
-  #df <- data.frame(Age_Group = c("40-50", "50-60", "60-70", "70-80", "80-90", "90+"), Prevalence = COPD_prev_by_agegroup)
-  #openxlsx::writeData(wb, "COPD_prev_by_age_group_GOLD", df, startCol = 2, startRow = 3, colNames = TRUE)
-
-  #plot_COPD_prev_by_agegroup  <- ggplot2::ggplot(df, aes(x = Age_Group, y = Prevalence)) +
-   # geom_bar(stat = "identity", position = "dodge", width = 0.2, fill = "#FF6666") + geom_errorbar(aes(ymin = Prevalence - 1.96*SE_COPD_prev_by_agegroup, ymax = Prevalence + 1.96*SE_COPD_prev_by_agegroup ),
-#
-    #                                                                                               width=.2, position=position_dodge(.9)) + ylim(low = 0, high = 50) + labs (title = "Prevalence of COPD by Age Group") + ylab ("Prevalence (%)") + labs(caption = "(error bars represent 95% CI)")
-
-  #plot(plot_COPD_prev_by_agegroup) #plot needs to be showing
-  #openxlsx::insertPlot(wb, "COPD_prev_by_age_group_GOLD",  xy = c("G", 3), width = 20, height = 13.2 , fileType = "png", units = "cm")
-
-
 
   ##################################################### FEV1 by sex and COPD year #####################################################
 
@@ -510,93 +473,6 @@ export_figures <- function(nPatients = 1e5) {
 
   plot(plot_exac_by_age_year) #plot needs to be showing
   openxlsx::insertPlot(wb, "Exac_by_age_year",  xy = c("I", 3), width = 20, height = 13.2 , fileType = "png", units = "cm")
-
-
-  ##################################################### Cost by GOLD #####################################################
-
-  # cost_by_GOLD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
-  # colnames(cost_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-  # cost_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
-  # cost_by_GOLD[, 2:5] <- (op_ex$cumul_cost_gold_ctime [, 2:5])
-  #
-  # for (i in (input$global_parameters$time_horizon:2)){
-  #   cost_by_GOLD[i, 2:5] <- cost_by_GOLD[i, 2:5] - (op_ex$cumul_cost_gold_ctime [i-1, 2:5])
-  # }
-  # cost_by_GOLD[, 2:5] <- cost_by_GOLD[, 2:5] / op_ex$n_COPD_by_ctime_severity[, 2:5] #per capita
-  # cost_by_GOLD <- as.data.frame(cost_by_GOLD)
-  # openxlsx::writeData(wb, "Cost_by_GOLD", cost_by_GOLD, startCol = 2, startRow = 3, colNames = TRUE)
-  # dfm <- reshape2::melt(cost_by_GOLD[,c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")],id.vars = 1)
-  #
-  # plot_cost_by_GOLD <- ggplot2::ggplot(dfm, aes(x = Year, y = value, color = variable)) +  theme_tufte(base_size=14, ticks=F) +
-  #   geom_point () + geom_line() + labs(title = "Cost per GOLD stage") + ylab ("Canadian dollars")  +
-  #   scale_colour_manual(values = c("#56B4E9", "#66CC99", "gold2" , "#CC6666")) +
-  #   scale_y_continuous(breaks = scales::pretty_breaks(n = 12)) + labs(caption = "per capita")
-  #
-  # plot(plot_cost_by_GOLD) #plot needs to be showing
-  # openxlsx::insertPlot(wb, "Cost_by_GOLD",  xy = c("I", 3), width = 20, height = 13.2 , fileType = "png", units = "cm")
-  #
-  # ## now cumul QALY
-  # Cumul_cost_by_GOLD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
-  # colnames(Cumul_cost_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-  # Cumul_cost_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
-  # Cumul_cost_by_GOLD[, 2:5] <- (op_ex$cumul_cost_gold_ctime [, 2:5])/1e6 / default_settings$n_base_agents * 25.2e6  #per million for entire Canada
-  #
-  # Cumul_cost_by_GOLD <- as.data.frame(Cumul_cost_by_GOLD)
-  # openxlsx::writeData(wb, "Cost_by_GOLD", Cumul_cost_by_GOLD, startCol = 2, startRow = 35, colNames = TRUE)
-  # Cumul_dfm <- reshape2::melt(Cumul_cost_by_GOLD[,c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")],id.vars = 1)
-  #
-  # plot_Cumul_cost_by_GOLD <- ggplot2::ggplot(Cumul_dfm, aes(x = Year, y = value, color = variable)) +  theme_tufte(base_size=14, ticks=F) +
-  #   geom_point () + geom_line() + labs(title = "Cost per GOLD stage") + ylab ("Canadian dollars")  +
-  #   scale_colour_manual(values = c("#56B4E9", "#66CC99", "gold2" , "#CC6666")) +
-  #   scale_y_continuous(breaks = scales::pretty_breaks(n = 12), labels=scales::dollar_format(suffix = "M")) + labs(caption = "Cumulative cost for Canada")
-  #
-  # plot(plot_Cumul_cost_by_GOLD) #plot needs to be showing
-  # openxlsx::insertPlot(wb, "Cost_by_GOLD",  xy = c("I", 35), width = 20, height = 13.2 , fileType = "png", units = "cm")
-
-  ##################################################### QALY by GOLD #####################################################
-#
-#   QALY_by_GOLD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
-#   colnames(QALY_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-#   QALY_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
-#
-#   QALY_by_GOLD[, 2:5] <- (op_ex$cumul_qaly_gold_ctime [, 2:5])
-#
-#   for (i in (input$global_parameters$time_horizon:2)){
-#     QALY_by_GOLD[i, 2:5] <- QALY_by_GOLD[i, 2:5] - (op_ex$cumul_qaly_gold_ctime [i-1, 2:5])
-#   }
-#
-#   QALY_by_GOLD[, 2:5] <- QALY_by_GOLD[, 2:5] / op_ex$n_COPD_by_ctime_severity[, 2:5] #per capita
-#   QALY_by_GOLD <- as.data.frame(QALY_by_GOLD)
-#   openxlsx::writeData(wb, "QALY_by_GOLD", QALY_by_GOLD, startCol = 2, startRow = 3, colNames = TRUE)
-#   dfm <- reshape2::melt(QALY_by_GOLD[,c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")],id.vars = 1)
-#
-#   plot_QALY_by_GOLD <- ggplot2::ggplot(dfm, aes(x = Year, y = value, color = variable)) +  theme_tufte(base_size=14, ticks=F) +
-#     geom_point () + geom_line() + labs(title = "QALY per GOLD stage") + ylab ("QALYs")  +
-#     scale_colour_manual(values = c("#56B4E9", "#66CC99", "gold2" , "#CC6666")) +
-#     scale_y_continuous(breaks = scales::pretty_breaks(n = 12)) + labs(caption = "per capita")
-#
-#   plot(plot_QALY_by_GOLD) #plot needs to be showing
-#   openxlsx::insertPlot(wb, "QALY_by_GOLD",  xy = c("I", 3), width = 20, height = 13.2 , fileType = "png", units = "cm")
-#
-#   ## now cumul QALY
-#   Cumul_QALY_by_GOLD <- matrix (NA, nrow = input$global_parameters$time_horizon, ncol = 5)
-#   colnames(Cumul_QALY_by_GOLD) <- c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")
-#   Cumul_QALY_by_GOLD[1:input$global_parameters$time_horizon, 1] <- c(1394:(1394+input$global_parameters$time_horizon-1))
-#
-#   Cumul_QALY_by_GOLD[, 2:5] <- (op_ex$cumul_qaly_gold_ctime [, 2:5]) / default_settings$n_base_agents * 25.2e6
-#   Cumul_QALY_by_GOLD <- as.data.frame(Cumul_QALY_by_GOLD)
-#
-#   openxlsx::writeData(wb, "QALY_by_GOLD", Cumul_QALY_by_GOLD, startCol = 2, startRow = 35, colNames = TRUE)
-#   Cumul_dfm <- reshape2::melt(Cumul_QALY_by_GOLD[,c("Year", "GOLD I", "GOLD II", "GOLD III", "GOLD IV")],id.vars = 1)
-#
-#   plot_Cumul_QALY_by_GOLD <- ggplot2::ggplot(Cumul_dfm, aes(x = Year, y = value, color = variable)) +  theme_tufte(base_size=14, ticks=F) +
-#     geom_point () + geom_line() + labs(title = "QALY per GOLD stage") + ylab ("QALYs")  +
-#     scale_colour_manual(values = c("#56B4E9", "#66CC99", "gold2" , "#CC6666")) +
-#     scale_y_continuous(breaks = scales::pretty_breaks(n = 12)) + labs(caption = "Cumulative QALY for Canada")
-#
-#   plot(plot_Cumul_QALY_by_GOLD) #plot needs to be showing
-#   openxlsx::insertPlot(wb, "QALY_by_GOLD",  xy = c("I", 35), width = 20, height = 13.2 , fileType = "png", units = "cm")
-#
 
   ######################################################## COPD_related_mortality_per_age_group #########################################################
 

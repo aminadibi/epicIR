@@ -316,9 +316,6 @@ get_input <- function(age0 = 40,
   input_ref$smoking$smoking_cessation_adherence <- ""
 
 
-
-
-
   ## COPD
   input_help$COPD$logit_p_COPD_betas_by_sex <- "Logit of the probability of having COPD (FEV1/FVC<0.7) at time of creation (separately by sex)"
   input$COPD$logit_p_COPD_betas_by_sex <- cbind(male = c(intercept = -4.522189  , age = 0.033070   , age2 = 0, pack_years = 0.025049   ,
@@ -329,11 +326,11 @@ get_input <- function(age0 = 40,
 
 
   input_help$COPD$ln_h_COPD_betas_by_sex <- "Log-hazard of developing COPD (FEV1/FVC<LLN) for those who did not have COPD at creation time (separately by sex)"
-  input$COPD$ln_h_COPD_betas_by_sex <- cbind(male = c(Intercept =  -7.97107937, age = 0.03245063, age2 = 0, pack_years =  0.03578899,
+  input$COPD$ln_h_COPD_betas_by_sex <- cbind(male = c(Intercept = -7.93161760, age = 0.03184491, age2 = 0, pack_years = 0.03214863,
                                                       smoking_status = 0, year = 0, asthma = 0),
-                                             female = c(Intercept = -7.78520064, age = 0.02975571, age2 = 0, pack_years = 0.04087865,
+                                             female = c(Intercept = -8.59813417, age =0.03960317, age2 = 0, pack_years = 0.03965980,
                                                         smoking_status =  0, year = 0, asthma = 0))
-  input_ref$COPD$ln_h_COPD_betas_by_sex <- "Amin's Iterative solution. Last Updated on 2022-06-33 (0.29.0)"
+  input_ref$COPD$ln_h_COPD_betas_by_sex <- "Amin's Iterative solution. Last Updated on 2023-05-06 (0.35.0)"
 
 
   ## Lung function
