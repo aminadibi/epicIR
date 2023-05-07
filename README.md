@@ -34,20 +34,18 @@ remotes::install_github('aminadibi/epicIR')
 ### مک او اس
 ۱. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/) دانلود و نصب کنید
 
-۲. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
-
-۳. آخرین نسخه‌ی `clang` را با نصب ابزارهای دستوری Xcode نصب کنید:
+۲. آخرین نسخه‌ی `clang` را با نصب ابزارهای دستوری Xcode نصب کنید:
 `xcode-select --install`
 
-۴. نسخه‌ی مناسب `gfortran` را بر اساس نسخه‌ی Mac OS خود با استفاده از فایل dmg در [https://mac.r-project.org/tools/) نصب کنید
+۳. نسخه‌ی مناسب `gfortran` را بر اساس نسخه‌ی Mac OS خود با استفاده از فایل dmg در [https://mac.r-project.org/tools/) نصب کنید
 
-۵. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌های `remotes` و `usethis` را نصب کنید:
+۴. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌های `remotes` و `usethis` را نصب کنید:
 
 ```r
 install.packages (c('remotes', 'usethis'))
 ```
 
-۶. حالا باید بتوانید epicIR را از GitHub نصب کنید:
+۵. حالا باید بتوانید epicIR را از GitHub نصب کنید:
 ```r
 remotes::install_github('aminadibi/epicIR')
 ```
