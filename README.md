@@ -15,37 +15,37 @@ epicIR یک رابط کاربری را برای برقراری ارتباط با
 
 ## نصب
 ### ویندوز 
-1. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/) دانلود و نصب کنید
-2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
-3. آخرین نسخه‌ی Rtools را از [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/) دانلود و نصب کنید
-4. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌ی `devtools` را نصب کنید:
+۱. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/) دانلود و نصب کنید
+۲. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
+۳. آخرین نسخه‌ی Rtools را از [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/) دانلود و نصب کنید
+۴. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌ی `devtools` را نصب کنید:
 
 ```r
   install.packages('remotes')
 ```
 
-5. مدل را از گیت‌هاب نصب کنید
+۵. مدل را از گیت‌هاب نصب کنید
 
 ```r
 remotes::install_github('aminadibi/epicIR')
 ```
 
 ### مک او اس
-1. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/) دانلود و نصب کنید
-2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
+۱. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/) دانلود و نصب کنید
+۲. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
 
-3. آخرین نسخه‌ی `clang` را با نصب ابزارهای دستوری Xcode نصب کنید:
+۳. آخرین نسخه‌ی `clang` را با نصب ابزارهای دستوری Xcode نصب کنید:
 `xcode-select --install`
 
-4. نسخه‌ی مناسب `gfortran` را بر اساس نسخه‌ی Mac OS خود با استفاده از فایل dmg در [https://mac.r-project.org/tools/) نصب کنید
+۴. نسخه‌ی مناسب `gfortran` را بر اساس نسخه‌ی Mac OS خود با استفاده از فایل dmg در [https://mac.r-project.org/tools/) نصب کنید
 
-5. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌های `remotes` و `usethis` را نصب کنید:
+۵. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌های `remotes` و `usethis` را نصب کنید:
 
 ```r
 install.packages (c('remotes', 'usethis'))
 ```
 
-6. حالا باید بتوانید epicIR را از GitHub نصب کنید:
+۶. حالا باید بتوانید epicIR را از GitHub نصب کنید:
 ```r
 remotes::install_github('aminadibi/epicIR')
 ```
@@ -144,12 +144,8 @@ Cget_output()
 terminate_session()
 ```
 
-# Peer Models Network: EPIC on the Cloud
+## ارجاع
 
-The [Peer Models Network](https://www.peermodelsnetwork.com/) provides educational material abour the model. It also allows users to access EPIC through the cloud. A MACRO-enabled Excel-file can be used to interact with the model and see the results. To download the PRISM Excel template file for EPIC, or to access EPIC using APIs please refer to the [PMN model repository](https://models.peermodelsnetwork.com/#/)
-
-## Citation
-
-Please cite:
+لطفاً به مقاله‌ی زیر ارجاع دهید:
 
 ```Sadatsafavi, M., Ghanbarian, S., Adibi, A., Johnson, K., Mark FitzGerald, J., Flanagan, W., … Sin, D. (2019). Development and Validation of the Evaluation Platform in COPD (EPIC): A Population-Based Outcomes Model of COPD for Canada. Medical Decision Making. https://doi.org/10.1177/0272989X18824098```
