@@ -4,8 +4,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 # epicIR
-بسته‌ی R برای ارزیابی پلتفرم COPD (EPIC)، محلی‌سازی شده برای ایران. لطفاً برای اطلاعات بیشتر به مقالات منتشر شده مراجعه کنید:
-
+مدل جامع بررسی بیماری مزمن انسدادی ریه - بومی‌شده برای ایران. برای اطلاعات بیش‌تر به مقالات منتشر شده مراجعه کنید:
 Sadatsafavi, M., Ghanbarian, S., Adibi, A., Johnson, K., Mark FitzGerald, J., Flanagan, W., … Sin, D. (2019). Development and Validation of the Evaluation Platform in COPD (EPIC): A Population-Based Outcomes Model of COPD for Canada. Medical Decision Making. [https://doi.org/10.1177/0272989X18824098](https://doi.org/10.1177/0272989X18824098)
 
 Johnson KM, Sadatsafavi M, Adibi A, Lynd L, Harrison M, Tavakoli H, Sin DD, Bryan S. Cost effectiveness of case detection strategies for the early detection of COPD. Applied Health Economics and Health Policy. 2021 Mar;19(2):203-15. [https://doi.org/10.1007/s40258-020-00616-2](https://doi.org/10.1007/s40258-020-00616-2)
