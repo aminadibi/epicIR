@@ -51,22 +51,22 @@ remotes::install_github('aminadibi/epicIR')
 ```
 
 ### اوبونتو 
-1. R را از نشانی [https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html] دانلود و نصب کنید:
+۱. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html](1. آخرین نسخه‌ی R را از [https://cran.r-project.org/bin/linux/ubuntu/fullREADME.html](https://cran.r-project.org/bin/windows/base/) دانلود و نصب کنید
+) دانلود و نصب کنید
 
-2. R Studio را از [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/) دانلود و نصب کنید
-3. `libcurl` را از ترمینال نصب کنید:
+۲. بسته‌های زیر را از ترمینال نصب کنید 
 
 ```bash
   sudo apt-get install libcurl4-openssl-dev libssl-dev
 ```
 
-4. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌ی `devtools` را نصب کنید:
+۳. با استفاده از یک جلسه‌ی R در ترمینال یا در R Studio، بسته‌ی `devtools` را نصب کنید:
 
 ```r
 install.packages ('remotes')
 ```
 
-5. epicIR را از GitHub نصب کنید:
+۴. epicIR را از GitHub نصب کنید:
 
 ```r
 remotes::install_github('aminadibi/epicIR')
