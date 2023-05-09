@@ -1,0 +1,59 @@
+---
+title: "Validating_epicIR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Validating_epicIR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(epicIR)
+settings <- get_default_settings()
+settings$n_base_agents <- 1e6
+init_session(settings = settings)
+run()
+op_ex <- Cget_output_ex()
+terminate_session()
+
+```
+
+```{r tibble}
+library(tidyverse)
+library(ggthemes)
+copd_death_rate_by_ctime <- as_tibble(rowSums(op_ex$n_exac_death_by_ctime_severity)) %>% 
+  rename(death=value) %>%
+  mutate(year=2015:(2015+20-1),
+         population=rowSums(op_ex$n_alive_by_ctime_sex),
+         model_rate=death/population*1e5)
+
+IHME_death_rate_by_ctime <- IHME_GBD_2019_DATA_8c1db948_1 %>% 
+  select(year, val,lower,upper) %>%
+  rename(IHME_rate=val) %>%
+  rename(IHME_rate_lower=lower) %>%
+  rename(IHME_rate_upper=upper) 
+
+WHO_rate <- tibble(year=2017:2019, WHO_rate=c(13.86,13.79,13.76))
+
+copd_death_rate_by_ctime <- copd_death_rate_by_ctime %>% 
+  left_join(IHME_death_rate_by_ctime, by="year") %>% 
+  left_join(WHO_rate, by="year")
+
+copd_death_rate_by_ctime %>% 
+  select(year, model_rate, IHME_rate, WHO_rate) %>%
+  drop_na() %>%
+  pivot_longer(cols = c(model_rate, IHME_rate, WHO_rate), names_to="source", values_to="rate") %>%
+ggplot() +
+  geom_col(aes(x=year, y=rate, fill=source), position = "dodge") + 
+  ylab("Rate of COPD-related death (per 100,000)") + xlab("") +
+  ggtitle("Validation of epicIR Projections of COPD-related Mortality for Iran") +
+  theme_tufte()
+
+```

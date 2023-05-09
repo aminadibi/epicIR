@@ -399,7 +399,7 @@ export_figures <- function(nPatients = 1e5) {
   dfm <- reshape2::melt(exac_rate_by_sex_by_year[,c("Year", "male", "female")],id.vars = 1)
 
   plot_exac_rate_by_sex_by_year <- ggplot2::ggplot(dfm, aes(x = Year, y = value, color = variable)) +  theme_tufte(base_size=14, ticks=F) +
-    geom_point () + geom_line() + labs(title = "Exacerbation rate by gender") + ylab ("Exacerbation Rate")  +
+    geom_point () + geom_line() + labs(title = "Exacerbation rate by sex") + ylab ("Exacerbation Rate")  +
     scale_colour_manual(values = c("#CC6666", "#56B4E9")) + scale_y_continuous(breaks = scales::pretty_breaks(n = 12))
 
   plot(plot_exac_rate_by_sex_by_year) #plot needs to be showing
